@@ -1733,7 +1733,8 @@ function createFig_1_2_4(fig_ID) {
 			},],
 			valueAxis: {
 				labels: {
-					template: "#= axis_spacer(value/1e6) #"
+					template: "#= axis_spacer(value/1e6) #",
+					step: 2
 				},
 				title: {
 					text: "Number of deaths (millions)"
@@ -1745,8 +1746,7 @@ function createFig_1_2_4(fig_ID) {
 			categoryAxis: {
 				field: "causename",
 				labels: {
-					rotation: "auto",
-					step: 2
+					rotation: "auto"
 				},
 				majorGridLines: {
 					visible: false
