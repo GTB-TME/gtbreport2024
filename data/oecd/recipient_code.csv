@@ -1,0 +1,167 @@
+﻿Recipient code,Recipient name (EN),Recipient name (FR),ISOcode,Region,DAC_IncomeGroup,WB_Incomegroup,LandLocked,SIDS,FragileState
+55,Türkiye,Türkiye,TUR,Europe,UMICs,WB-UM,0,0,0
+57,Kosovo,Kosovo,XKX,Europe,UMICs,WB-UM,0,0,0
+63,Serbia,Serbie,SRB,Europe,UMICs,WB-UM,0,0,0
+64,Bosnia and Herzegovina,Bosnie-Herzégovine,BIH,Europe,UMICs,WB-UM,0,0,0
+65,Montenegro,Monténégro,MNE,Europe,UMICs,WB-UM,0,0,0
+66,North Macedonia,Macédoine du Nord,MKD,Europe,UMICs,WB-UM,1,0,0
+71,Albania,Albanie,ALB,Europe,UMICs,WB-UM,0,0,0
+85,Ukraine,Ukraine,UKR,Europe,LMICs,WB-LM,0,0,0
+86,Belarus,Bélarus,BLR,Europe,UMICs,WB-UM,0,0,0
+88,States Ex-Yugoslavia unspecified,Etats ex-Yougoslavie non spécifié,,Europe,Part I unallocated by income,,0,0,0
+89,"Europe, regional","Europe, régional",,Europe,Part I unallocated by income,,0,0,0
+93,Moldova,Moldova,MDA,Europe,UMICs,WB-UM,1,0,0
+130,Algeria,Algérie,DZA,North of Sahara,LMICs,WB-LM,0,0,0
+133,Libya,Libye,LBY,North of Sahara,UMICs,WB-UM,0,0,1
+136,Morocco,Maroc,MAR,North of Sahara,LMICs,WB-LM,0,0,0
+139,Tunisia,Tunisie,TUN,North of Sahara,LMICs,WB-LM,0,0,0
+142,Egypt,Egypte,EGY,North of Sahara,LMICs,WB-LM,0,0,0
+189,"North of Sahara, regional","Nord du Sahara, régional",,North of Sahara,Part I unallocated by income,,0,0,0
+218,South Africa,Afrique du Sud,ZAF,Southern Africa,UMICs,WB-UM,0,0,0
+225,Angola,Angola,AGO,Middle Africa,LDCs,WB-LM,0,0,1
+227,Botswana,Botswana,BWA,Southern Africa,UMICs,WB-UM,1,0,0
+228,Burundi,Burundi,BDI,Eastern Africa,LDCs,WB-L,1,0,1
+229,Cameroon,Cameroun,CMR,Middle Africa,LMICs,WB-LM,0,0,1
+230,Cabo Verde,Cabo Verde,CPV,Western Africa,LMICs,WB-LM,0,1,0
+231,Central African Republic,République centrafricaine,CAF,Middle Africa,LDCs,WB-L,1,0,1
+232,Chad,Tchad,TCD,Middle Africa,LDCs,WB-L,1,0,1
+233,Comoros,Comores,COM,Eastern Africa,LDCs,WB-LM,0,1,1
+234,Congo,Congo,COG,Middle Africa,LMICs,WB-LM,0,0,1
+235,Democratic Republic of the Congo,République démocratique du Congo,COD,Middle Africa,LDCs,WB-L,0,0,1
+236,Benin,Bénin,BEN,Western Africa,LDCs,WB-LM,0,0,1
+238,Ethiopia,Ethiopie,ETH,Eastern Africa,LDCs,WB-L,1,0,1
+239,Gabon,Gabon,GAB,Middle Africa,UMICs,WB-UM,0,0,0
+240,Gambia,Gambie,GMB,Western Africa,LDCs,WB-L,0,0,1
+241,Ghana,Ghana,GHA,Western Africa,LMICs,WB-LM,0,0,0
+243,Guinea,Guinée,GIN,Western Africa,LDCs,WB-L,0,0,1
+244,Guinea-Bissau,Guinée-Bissau,GNB,Western Africa,LDCs,WB-L,0,1,1
+245,Equatorial Guinea,Guinée équatoriale,GNQ,Middle Africa,UMICs,WB-UM,0,0,1
+247,Côte d'Ivoire,Côte d'Ivoire,CIV,Western Africa,LMICs,WB-LM,0,0,1
+248,Kenya,Kenya,KEN,Eastern Africa,LMICs,WB-LM,0,0,1
+249,Lesotho,Lesotho,LSO,Southern Africa,LDCs,WB-LM,1,0,1
+251,Liberia,Libéria,LBR,Western Africa,LDCs,WB-L,0,0,1
+252,Madagascar,Madagascar,MDG,Eastern Africa,LDCs,WB-L,0,0,1
+253,Malawi,Malawi,MWI,Eastern Africa,LDCs,WB-L,1,0,0
+255,Mali,Mali,MLI,Western Africa,LDCs,WB-L,1,0,1
+256,Mauritania,Mauritanie,MRT,Western Africa,LDCs,WB-LM,0,0,1
+257,Mauritius,Maurice,MUS,Eastern Africa,UMICs,WB-UM,0,1,0
+259,Mozambique,Mozambique,MOZ,Eastern Africa,LDCs,WB-L,0,0,1
+260,Niger,Niger,NER,Western Africa,LDCs,WB-L,1,0,1
+261,Nigeria,Nigéria,NGA,Western Africa,LMICs,WB-LM,0,0,1
+265,Zimbabwe,Zimbabwe,ZWE,Eastern Africa,LMICs,WB-LM,1,0,1
+266,Rwanda,Rwanda,RWA,Eastern Africa,LDCs,WB-L,1,0,0
+268,Sao Tome and Principe,Sao Tomé-et-Principe,STP,Middle Africa,LDCs,WB-LM,0,1,0
+269,Senegal,Sénégal,SEN,Western Africa,LDCs,WB-LM,0,0,0
+271,Eritrea,Erythrée,ERI,Eastern Africa,LDCs,WB-L,0,0,1
+272,Sierra Leone,Sierra Leone,SLE,Western Africa,LDCs,WB-L,0,0,1
+273,Somalia,Somalie,SOM,Eastern Africa,LDCs,WB-L,0,0,1
+274,Djibouti,Djibouti,DJI,Eastern Africa,LDCs,WB-LM,0,0,1
+275,Namibia,Namibie,NAM,Southern Africa,UMICs,WB-UM,0,0,0
+276,Saint Helena,Sainte-Hélène,SHN,Western Africa,UMICs,WB-NC,0,0,0
+278,Sudan,Soudan,SDN,Eastern Africa,LDCs,WB-L,0,0,1
+279,South Sudan,Soudan du Sud,SSD,Eastern Africa,LDCs,WB-L,1,0,1
+280,Eswatini,Eswatini,SWZ,Southern Africa,LMICs,WB-LM,1,0,1
+282,Tanzania,Tanzanie,TZA,Eastern Africa,LDCs,WB-LM,0,0,1
+283,Togo,Togo,TGO,Western Africa,LDCs,WB-L,0,0,1
+285,Uganda,Ouganda,UGA,Eastern Africa,LDCs,WB-L,1,0,1
+287,Burkina Faso,Burkina Faso,BFA,Western Africa,LDCs,WB-L,1,0,1
+288,Zambia,Zambie,ZMB,Eastern Africa,LDCs,WB-L,1,0,1
+289,"South of Sahara, regional","Sud du Sahara, régional",,South of Sahara,Part I unallocated by income,,0,0,0
+298,"Africa, regional","Afrique, régional",,Africa,Part I unallocated by income,,0,0,0
+336,Costa Rica,Costa Rica,CRI,Central America,UMICs,WB-UM,0,0,0
+338,Cuba,Cuba,CUB,Caribbean,UMICs,WB-UM,0,1,0
+340,Dominican Republic,République dominicaine,DOM,Caribbean,UMICs,WB-UM,0,1,0
+342,El Salvador,El Salvador,SLV,Central America,LMICs,WB-LM,0,0,0
+347,Guatemala,Guatemala,GTM,Central America,UMICs,WB-UM,0,0,1
+349,Haiti,Haïti,HTI,Caribbean,LDCs,WB-LM,0,1,1
+351,Honduras,Honduras,HND,Central America,LMICs,WB-LM,0,0,1
+352,Belize,Belize,BLZ,Central America,LMICs,WB-UM,0,1,0
+354,Jamaica,Jamaïque,JAM,Caribbean,UMICs,WB-UM,0,1,0
+358,Mexico,Mexique,MEX,Central America,UMICs,WB-UM,0,0,0
+364,Nicaragua,Nicaragua,NIC,Central America,LMICs,WB-LM,0,0,1
+366,Panama,Panama,PAN,Central America,UMICs,WB-H,0,0,0
+378,Dominica,Dominique,DMA,Caribbean,UMICs,WB-UM,0,1,0
+381,Grenada,Grenade,GRD,Caribbean,UMICs,WB-UM,0,1,0
+383,Saint Lucia,Sainte-Lucie,LCA,Caribbean,UMICs,WB-UM,0,1,0
+384,Saint Vincent and the Grenadines,Saint-Vincent-et-les-Grenadines,VCT,Caribbean,UMICs,WB-UM,0,1,0
+385,Montserrat,Montserrat,MSR,Caribbean,UMICs,WB-NC,0,1,0
+389,"Caribbean & Central America, regional","Caraïbes et Amérique centrale, régional",,Caribbean & Central America,Part I unallocated by income,,0,0,0
+425,Argentina,Argentine,ARG,South America,UMICs,WB-UM,0,0,0
+428,Bolivia,Bolivie,BOL,South America,LMICs,WB-LM,1,0,0
+431,Brazil,Brésil,BRA,South America,UMICs,WB-UM,0,0,0
+437,Colombia,Colombie,COL,South America,UMICs,WB-UM,0,0,0
+440,Ecuador,Equateur,ECU,South America,UMICs,WB-UM,0,0,0
+446,Guyana,Guyana,GUY,South America,UMICs,WB-UM,0,1,0
+451,Paraguay,Paraguay,PRY,South America,UMICs,WB-UM,1,0,0
+454,Peru,Pérou,PER,South America,UMICs,WB-UM,0,0,0
+457,Suriname,Suriname,SUR,South America,UMICs,WB-UM,0,1,0
+463,Venezuela,Venezuela,VEN,South America,UMICs,WB-NC,0,0,1
+489,"South America, regional","Amérique du Sud, régional",,South America,Part I unallocated by income,,0,0,0
+498,"America, regional","Amérique, régional",,America,Part I unallocated by income,,0,0,0
+540,Iran,Iran,IRN,Middle East,LMICs,WB-LM,0,0,1
+543,Iraq,Iraq,IRQ,Middle East,UMICs,WB-UM,0,0,1
+549,Jordan,Jordanie,JOR,Middle East,UMICs,WB-UM,0,0,0
+550,West Bank and Gaza Strip,Cisjordanie et bande de Gaza,PSE,Middle East,LMICs,WB-LM,0,0,1
+555,Lebanon,Liban,LBN,Middle East,UMICs,WB-LM,0,0,0
+573,Syrian Arab Republic,République arabe syrienne,SYR,Middle East,Other LICs,WB-L,0,0,1
+580,Yemen,Yémen,YEM,Middle East,LDCs,WB-L,0,0,1
+589,"Middle East, regional","Moyen-Orient, régional",,Middle East,Part I unallocated by income,,0,0,0
+610,Armenia,Arménie,ARM,South & Central Asia,UMICs,WB-UM,1,0,0
+611,Azerbaijan,Azerbaïdjan,AZE,South & Central Asia,UMICs,WB-UM,1,0,0
+612,Georgia,Géorgie,GEO,South & Central Asia,UMICs,WB-UM,0,0,0
+613,Kazakhstan,Kazakhstan,KAZ,South & Central Asia,UMICs,WB-UM,1,0,0
+614,Kyrgyzstan,Kirghizistan,KGZ,South & Central Asia,LMICs,WB-LM,1,0,0
+615,Tajikistan,Tadjikistan,TJK,South & Central Asia,LMICs,WB-LM,1,0,1
+616,Turkmenistan,Turkménistan,TKM,South & Central Asia,UMICs,WB-UM,1,0,1
+617,Uzbekistan,Ouzbékistan,UZB,South & Central Asia,LMICs,WB-LM,1,0,0
+619,"Central Asia, regional","Asie centrale, régional",,South & Central Asia,Part I unallocated by income,,0,0,0
+625,Afghanistan,Afghanistan,AFG,South & Central Asia,LDCs,WB-L,1,0,1
+630,Bhutan,Bhoutan,BTN,South & Central Asia,LDCs,WB-LM,1,0,0
+635,Myanmar,Myanmar,MMR,South & Central Asia,LDCs,WB-LM,0,0,1
+640,Sri Lanka,Sri Lanka,LKA,South & Central Asia,LMICs,WB-LM,0,0,0
+645,India,Inde,IND,South & Central Asia,LMICs,WB-LM,0,0,0
+655,Maldives,Maldives,MDV,South & Central Asia,UMICs,WB-UM,0,1,0
+660,Nepal,Népal,NPL,South & Central Asia,LDCs,WB-LM,1,0,0
+665,Pakistan,Pakistan,PAK,South & Central Asia,LMICs,WB-LM,0,0,1
+666,Bangladesh,Bangladesh,BGD,South & Central Asia,LDCs,WB-LM,0,0,1
+679,"South Asia, regional","Asie du Sud, régional",,South & Central Asia,Part I unallocated by income,,0,0,0
+689,"South & Central Asia, regional","Asie du Sud & C., régional",,South & Central Asia,Part I unallocated by income,,0,0,0
+728,Cambodia,Cambodge,KHM,Far East Asia,LDCs,WB-LM,0,0,1
+730,China (People's Republic of),Chine (République populaire de),CHN,Far East Asia,UMICs,WB-UM,0,0,0
+738,Indonesia,Indonésie,IDN,Far East Asia,LMICs,WB-LM,0,0,0
+740,Democratic People's Republic of Korea,République populaire démocratique de Corée,PRK,Far East Asia,Other LICs,WB-L,0,0,1
+745,Lao People's Democratic Republic,République démocratique populaire lao,LAO,Far East Asia,LDCs,WB-LM,1,0,1
+751,Malaysia,Malaisie,MYS,Far East Asia,UMICs,WB-UM,0,0,0
+753,Mongolia,Mongolie,MNG,Far East Asia,LMICs,WB-LM,1,0,0
+755,Philippines,Philippines,PHL,Far East Asia,LMICs,WB-LM,0,0,0
+764,Thailand,Thaïlande,THA,Far East Asia,UMICs,WB-UM,0,0,0
+765,Timor-Leste,Timor-Leste,TLS,Far East Asia,LDCs,WB-LM,0,1,1
+769,Viet Nam,Viet Nam,VNM,Far East Asia,LMICs,WB-LM,0,0,0
+789,"Far East Asia, regional","Extrême-Orient, régional",,Far East Asia,Part I unallocated by income,,0,0,0
+798,"Asia, regional","Asie, régional",,Asia,Part I unallocated by income,,0,0,0
+832,Fiji,Fidji,FJI,Melanesia,UMICs,WB-UM,0,1,0
+836,Kiribati,Kiribati,KIR,Micronesia,LDCs,WB-LM,0,1,0
+845,Nauru,Nauru,NRU,Micronesia,UMICs,WB-H,0,1,0
+854,Vanuatu,Vanuatu,VUT,Melanesia,LMICs,WB-LM,0,1,0
+856,Niue,Niue,NIU,Polynesia,UMICs,WB-NC,0,1,0
+859,Marshall Islands,Iles Marshall,MHL,Micronesia,UMICs,WB-UM,0,1,0
+860,Micronesia,Micronésie,FSM,Micronesia,LMICs,WB-LM,0,1,0
+861,Palau,Palaos,PLW,Micronesia,UMICs,WB-UM,0,1,0
+862,Papua New Guinea,Papouasie-Nouvelle-Guinée,PNG,Melanesia,LMICs,WB-LM,0,1,1
+866,Solomon Islands,Îles Salomon,SLB,Melanesia,LDCs,WB-LM,0,1,1
+868,Tokelau,Tokélaou,TKL,Polynesia,LMICs,WB-NC,0,0,0
+870,Tonga,Tonga,TON,Polynesia,UMICs,WB-UM,0,1,0
+872,Tuvalu,Tuvalu,TUV,Polynesia,LDCs,WB-UM,0,1,0
+876,Wallis and Futuna,Wallis-et-Futuna,WLF,Polynesia,UMICs,WB-NC,0,0,0
+880,Samoa,Samoa,WSM,Polynesia,LMICs,WB-LM,0,1,0
+889,"Oceania, regional","Océanie, régional",,,Part I unallocated by income,,0,1,0
+998,"Developing countries, unspecified","Pays en développement, non spécifié",,,Part I unallocated by income,,0,0,0
+1027,"Eastern Africa, regional","Afrique de l'est, régional",,Eastern Africa,Part I unallocated by income,,0,0,0
+1028,"Middle Africa, regional","Afrique centrale, régional",,Middle Africa,Part I unallocated by income,,0,0,0
+1029,"Southern Africa, regional","Afrique australe, régional",,Southern Africa,Part I unallocated by income,,0,0,0
+1030,"Western Africa, regional","Afrique occidentale, régional",,Western Africa,Part I unallocated by income,,0,0,0
+1031,"Caribbean, regional","Caraïbes, régional",,Caribbean,Part I unallocated by income,,0,1,0
+1032,"Central America, regional","Amérique centrale, régional",,Central America,Part I unallocated by income,,0,0,0
+1033,"Melanesia, regional","Mélanésie, régional",,Melanesia,Part I unallocated by income,,0,0,0
+1034,"Micronesia, regional","Micronésie, régional",,Micronesia,Part I unallocated by income,,0,0,0
+1035,"Polynesia, regional","Polynésie, régional",,Polynesia,Part I unallocated by income,,0,0,0

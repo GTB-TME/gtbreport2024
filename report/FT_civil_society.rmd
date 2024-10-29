@@ -1,0 +1,452 @@
+---
+title: "FT: Ensuring meaningful engagement of civil society and communities affected by TB"
+author: "Takuya Yamanaka" 
+date: "`r Sys.Date()`"
+knit: (function(inputFile, encoding) {
+      out_dir <- "./local";
+      rmarkdown::render(inputFile,
+                        encoding=encoding,
+                        output_dir=file.path(dirname(inputFile), out_dir))})
+output: 
+  html_fragment:
+    # Do not include a table of contents
+    toc: no
+    # Set standard figure width to 12 inches
+    fig_width: 12
+    # Do not write figure captions
+    fig_caption: FALSE
+    # Don't embed external resources (stylesheets, JS libraries) in the output 
+    self_contained: False    
+    # Don't include <div> tags around a header and the content found until the next header
+    section_divs: FALSE  
+    
+---
+  
+```{r setup, include=FALSE}
+
+# Set chunk options.
+# Results "asis" is needed to avoid xtable output being html encoded
+# Suppress messages, warnings and also the ## at the beginning of printed text
+# Set a default figure width too.
+
+knitr::opts_chunk$set(echo = FALSE,
+                      results = "asis",
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.width = 12)
+
+# Load output packages ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+library(ggplot2)
+library(ggrepel)
+library(dplyr)
+library(scales)
+library(RColorBrewer)
+library(whomap)
+library(gtbreport)
+library(here)
+
+library(jsonlite)
+library(dplyr)
+library(here)
+library(kableExtra)
+
+# Load R functions ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+source(here("report/functions/html_links.R"))
+source(here("report/functions/output_ggplot.R"))
+
+# Get the data sets and computed values/statistics ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+source(here('report/ft_civil_society_prepare_data.r'))
+
+# Show static chart in addition to Kendo chart?
+show_static = F
+
+# Save underlying data files as CSV and charts as PDF files?
+pdf_csv_folder = here::here("report/local/figures/ft_civil_society")
+save_csv = TRUE
+save_pdf = TRUE
+
+# Create the output folder (only if it doesn't yet exist)
+dir.create(pdf_csv_folder, showWarnings = FALSE, recursive = TRUE)
+
+```
+
+
+```{r css_js}
+# Add standard stylesheets and javascript to support kendo
+cat(writeLines(readLines(here("report/resources/headers.htm"))))
+```
+
+
+```{css, echo=FALSE}
+/* MAF table */
+/* Recreating simple striped bootstrap table */
+#maf_table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  /* Next two lines to allow horizontal scrolling on narrow screens */
+  display: block;
+  overflow-x: auto;
+}
+
+#maf_table th {
+  background-color: #ADD8E6;
+  border-bottom: 2px solid #DDDDDD;
+  padding: 8px;
+}
+
+#maf_table td {
+  border-top: 1px solid #DDDDDD;
+  padding: 8px;
+}
+
+/* Bold for the final row with thick line above */
+#maf_table tr:last-child td {
+  border-top: 2px solid #DDDDDD;
+  font-weight:bold;	
+  background-color: #FBE4D5;
+}
+
+/* light gray when hovering over a row */
+#maf_table tr:hover td {
+  background-color: #DDDDDD;
+}
+
+/* Centre-align all column headings except for the first */
+#maf_table th:not(:first-child) {
+  text-align: center !important;
+}
+
+/* prevent numbers from wrapping in any of the columns */
+#maf_table td {
+  white-space: nowrap;
+}
+
+
+
+```
+
+# Ensuring meaningful engagement of civil society and communities affected by TB
+ 
+<span class="red">**Draft! Prepared `r Sys.Date()` using country-reported data snapshot files from `r format(as.Date(snapshot_date), format="%d %B %Y")`!**</span>
+
+The World Health Organization (WHO) End TB Strategy (`r ref_lnk("1")`) emphasizes the importance of community and civil society engagement in the response to tuberculosis (TB). Similarly, the political declarations of the 2018 (`r ref_lnk("2")`) and 2023 (`r ref_lnk("3")`) United Nations (UN) high-level meetings on the fight against TB called for strong engagement of affected communities and civil society in national, regional and global efforts to end TB.
+
+In 2023, WHO published <i>Guidance on engagement of communities and civil society to end tuberculosis</i> (`r ref_lnk("4")`). That document encourages the involvement of communities in the full programmatic cycle of the TB response, including planning, decision-making, advocacy for sustainable and equitable financing, implementation, monitoring and research. It stresses the importance of close engagement and strong, sustainable partnerships between ministries of health (including national TB programmes [NTPs]), and civil society and communities affected by TB, for the delivery of people-centred services, building on the concept of “one system”. The guidance aligns with the vision of health systems that are oriented towards primary health care and that include communities as integral components, as outlined in the WHO and United Nations Children’s Fund (UNICEF) <i>Operational framework for primary health care: transforming vision into action</i> (`r ref_lnk("5")`).
+
+To monitor the engagement and contribution of civil society and communities in the TB response, the guidance from WHO includes four national-level indicators for global reporting:
+
+* referral to TB services by community health workers (CHWs) and community volunteers (CVs);
+
+* treatment success among those who received support from CHWs and CVs;
+
+* community representation in national decision-making; and 
+
+* the level of funding committed for community engagement in the TB response at national level. 
+
+The first two indicators measure the contribution of community-based activities to the detection and diagnosis of people with TB and treatment outcomes. The third indicator measures community participation in planning and other key national processes. The fourth helps to assess whether there is an enabling environment for meaningful engagement of communities and civil society (full definitions of the indicators can be found on pages 27&ndash;29 of the guidance (`r ref_lnk("4")`)).
+
+
+As part of WHO’s round of global TB data collection in 2024, `r ce_n_country` countries were asked to report data on these indicators. The countries were selected according to their burden of TB disease and the availability of national data, informed by data collection efforts related to community and civil society engagement in previous years.
+
+Of the `r ce_n_country` countries, `r ftb(ce_n_country_available/ce_n_country*100)`% (`r ce_n_country_available` countries) reported that they had data on the contribution of communities to TB case notifications or TB treatment outcomes through CHWs or CVs. In `r ce_n_country_available` countries that reported data, community referrals contributed to `r ftb(comm_notif$ce_notified_pct)`% of TB case notifications. Among `r ce_n_country_outcomes` countries that reported data, the treatment success rate for people who benefited from any form of community treatment support averaged `r ftb(outcomes_text$ce_notified_pct)`% in 2022 (the latest year for which treatment outcome data are available). Subnational coverage, in terms of the percentage of basic management units of the NTP that were implementing activities related to community engagement, is shown in `r lnk("Fig. 1")`.
+
+
+### `r anch("Fig. 1")`<span class="red">Fig. 1</span> Percentage of TB basic management units in which communities contributed to new TB case finding or to treatment adherence support, by country,^a^ `r report_year-1`
+
+```{r fig_1, fig.alt="Map showing percentage of management units with community contributions to case finding and/or treatment support",  eval=datacoll}
+
+f1_plot <- f1_data %>% 
+  
+  whomap(colours = brewer.pal(4, "OrRd"),
+         legend.title = "Percentage (%)",
+         na.col = "white",
+         water.col = "white")
+
+
+output_ggplot(f1_plot, f1_data, show_static = TRUE, pdf_csv_folder, save_csv, save_pdf)
+
+
+```
+<div class="footnote">^a^ Data were only requested from `r filter(f1_data, dc_engage_community_display==1) %>% nrow()` countries.</div>
+
+<hr />
+<br />
+
+Formal engagement of affected communities and civil society in the development of national strategic plans was reported by `r ftb(t1_global_data$community_nsp/ce_n_country*100)`% of countries (`r t1_global_data$community_nsp` of `r ce_n_country`). Among the 30 high TB burden countries, `r f2_hbc_txt$community_nsp` (`r ftb(f2_hbc_txt$community_nsp/f2_hbc_txt$n_country *100)`%) reported that there was formal engagement of communities and civil society in the development of the national strategic plan and `r f2_hbc_txt$community_prog_review` (`r ftb(f2_hbc_txt$community_prog_review/f2_hbc_txt$n_country *100)`%) reported that there was engagement in national TB programme reviews. The level of engagement in the development of annual national TB reports and national guidance documents and training manuals was lower (`r f2_hbc_txt$community_annual_report` and `r f2_hbc_txt$community_manuals` countries, respectively). More details are provided in `r lnk("Table 1")` and `r lnk("Fig. 2")`. 
+
+In terms of the formal engagement of communities and civil society in the development of national strategic plans, at regional level, the proportion of countries reporting such engagement was highest in the WHO African Region (`r ftb(f2_region_txt_AFR$community_nsp/f2_region_txt_AFR$n_country *100)`%, `r f2_region_txt_AFR$community_nsp` of `r f2_region_txt_AFR$n_country`), followed by the South-East Asia Region (`r ftb(f2_region_txt_SEA$community_nsp/f2_region_txt_SEA$n_country *100)`%, `r f2_region_txt_SEA$community_nsp` of `r f2_region_txt_SEA$n_country`), the Western Pacific Region (`r ftb(f2_region_txt_WPR$community_nsp/f2_region_txt_WPR$n_country *100)`%, `r f2_region_txt_WPR$community_nsp` of `r f2_region_txt_WPR$n_country`), the Eastern Mediterranean Region (`r ftb(f2_region_txt_EMR$community_nsp/f2_region_txt_EMR$n_country *100)`%, `r f2_region_txt_EMR$community_nsp` of `r f2_region_txt_EMR$n_country`), the Region of the  Americas (`r ftb(f2_region_txt_AMR$community_nsp/f2_region_txt_AMR$n_country *100)`%, `r f2_region_txt_AMR$community_nsp` of `r f2_region_txt_AMR$n_country`) and the European Region (`r ftb(f2_region_txt_EUR$community_nsp/f2_region_txt_EUR$n_country *100)`%, `r f2_region_txt_EUR$community_nsp` of `r f2_region_txt_EUR$n_country`). 
+
+### `r anch("Table 1")`<span style="color:#F21905">Table 1</span> Status of core elements of community engagement in the TB response, globally, for WHO regions and the 30 high TB burden countries, `r report_year`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results = "asis", dev = 'png', table_1, fig.alt="CE status",fig.height=18}
+
+# Create a table object using kable
+table_header <- linebreak(c('WHO regions, global total and high TB burden countries',
+                  # 'Number of countries and areas',
+                  "Number of countries and areas which were asked to report data",
+                  'Development of the national strategic plan',
+                  'Preparation and conduct of a TB programme review',
+                  'Development of the annual national TB report',
+                  'Development or update of national TB guidelines or manuals'
+))
+
+knitr::kable(t1_data_table,
+             format = "html",
+             col.names = table_header,
+             align = 'lccccc',
+             # Add a table ID so that it can be styled using extra CSS in Sitefinity
+             table.attr = "id='maf_table'",escape = FALSE) 
+
+```
+
+
+
+<hr />
+<br />
+
+
+### `r anch("Fig. 2")`<span style="color:#F21905">Fig. 2</span> Percentage of countries engaging communities in the TB response in `r report_year-1`, based on data reported by NTPs, disaggregated by WHO region and for the 30 high TB burden countries
+
+```{r fig_2, fig.alt="CE region"}
+
+f2_plot <- f2_data %>%
+  
+  mutate(entity = factor(entity, levels = c("Global","African Region","Region of the Americas",
+                                            "South-East Asia Region","European Region",
+                                            "Eastern Mediterranean Region","Western Pacific Region",
+                                            "High TB burden countries"))) %>%
+  
+  ggplot(aes(variable,
+             pct,
+             fill = variable)) +
+ 
+  geom_bar(stat = "identity") +
+  facet_wrap( ~ entity, nrow = 2) +
+  expand_limits(y=c(0,100)) +
+  theme_gtb() +
+
+  scale_fill_manual("", 
+                    values = c("dodgerblue3","limegreen","blueviolet","goldenrod3")) +
+
+  labs(x="", y="Percentage") +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank())
+
+output_ggplot(f2_plot, f2_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+
+```
+
+<div class="row">
+<div class="col-md-4">
+<div id="fig_2_Global"></div>
+</div>
+<div class="col-md-4">
+<div id="fig_2_AFR"></div>
+</div>
+<div class="col-md-4">
+<div id="fig_2_AMR"></div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4">
+<div id="fig_2_SEA"></div>
+</div>
+<div class="col-md-4">
+<div id="fig_2_EUR"></div>
+</div>
+<div class="col-md-4">
+<div id="fig_2_EMR"></div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4">
+<div id="fig_2_WPR"></div>
+</div>
+<div class="col-md-4">
+<div id="fig_2_HBC"></div>
+</div>
+</div>
+
+
+
+<hr />
+<br />
+
+Data on the amount of expected funding to community engagement activities in the national TB budget (`r lnk("Fig. 3")`) were provided by `r f3_data_n` of the `r ce_n_country` countries (`r ftb(f3_data_n/ce_n_country *100)`%). Among these `r f3_data_n` countries, the amount of committed funding as a percentage of the national TB budget was `r ftb(f3_data_cf_global$pct)`% (US\$&nbsp;`r ftb(f3_data_cf_global$cf_community/1e6)` million of US\$&nbsp;`r ftb(f3_data_cf_global$cf_tot/1e9)` billion). The proportion of expected funding for community engagement was highest in the WHO African Region (`r ftb(f3_data_cf_region %>% slice(1) %>% select(pct))`%), followed by the Western Pacific Region (`r ftb(f3_data_cf_region %>% slice(2) %>% select(pct))`%), the South-East Asia Region (`r ftb(f3_data_cf_region %>% slice(3) %>% select(pct))`%), the European Region (`r ftb(f3_data_cf_region %>% slice(4) %>% select(pct))`%) and the Region of the Americas (`r ftb(f3_data_cf_region %>% slice(5) %>% select(pct))`%). No data were reported by countries in the WHO Eastern Mediterranean Region. Among the 30 countries with the highest burden of TB globally, `r f3_data_cf_hbc$community_budget_available` reported these data. In these `r f3_data_cf_hbc$community_budget_available` countries, the proportion of the national TB budget allocated for community engagement activities was `r ftb(f3_data_cf_hbc$pct)`% (US\$&nbsp;`r ftb(f3_data_cf_hbc$cf_community/1e6)` million of US\$&nbsp;`r ftb(f3_data_cf_hbc$cf_tot/1e9)` billion).
+
+
+### `r anch("Fig. 3")`<span class="red">Fig. 3</span> Status of funding for community engagement activities in the national TB budget for `r report_year`
+
+```{r fig_3, fig.alt="World map showing countries with funding for community engagement"}
+
+f3_plot <- f3_data %>% 
+
+  whomap(colours=c("blueviolet","#EFF3FF"),
+         legend.title = "",
+         na.col = "white",
+         water.col = "white")
+
+
+output_ggplot(f3_plot, f3_data, show_static = T, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+
+<hr />
+<br />
+
+Despite progress in involving communities in the TB response, more work is needed to achieve and maintain meaningful engagement for ending TB, especially in high burden and priority countries. More systematic analysis of reasons for the important regional variation in the formal engagement of communities in key national decision-making processes and committed funding for community engagement activities in the national TB budget would also be useful. 
+
+The WHO Civil Society Task Force on Tuberculosis (CSTF-TB) was established in December 2018 as a platform for dialogue and exchange, to harness the potential of civil society engagement and accelerate progress to end TB (`r ref_lnk("6")`). Since then, the CSTF-TB members have been bringing the voices of TB civil society, communities affected by TB and survivors into the mainstream work of WHO. The WHO Global Tuberculosis Programme (WHO/GTB) has been ensuring that CSTF-TB members are an integral part of all priority workstreams, and participate in all guideline development processes. The second UN high-level meeting on the fight against TB in 2023 benefited from the active engagement of CSTF-TB members; for example, members advocated for priorities at the grassroots level to be reflected in the political declaration. In 2024, membership of the CSTF-TB was renewed for 2024&ndash;2025; details about its membership can be found on the WHO website (`r ref_lnk("6")`). 
+
+
+
+`r anch("refs")`
+
+<hr style="border:1px solid gray20">
+
+**References**
+
+1.	The End TB Strategy. Geneva: World Health Organization; 2015 (https://iris.who.int/handle/10665/331326).
+
+2.	Resolution 73/3: Political declaration of the high-level meeting of the United Nations General Assembly on the fight against tuberculosis. New York: United Nations General Assembly; 2018 (https://www.who.int/publications/m/item/political-declaration-of-the-un-general-assembly-high-level-meeting-on-the-fight-against-tuberculosis).
+
+3.	Resolution 78/5: Political declaration of the high-level meeting of the General Assembly on the fight against tuberculosis. New York: United Nations; 2023 (https://undocs.org/A/RES/78/5).
+
+4.	Guidance on engagement of communities and civil society to end tuberculosis. Geneva: World Health Organization; 2023 (https://iris.who.int/handle/10665/373321).
+5.	World Health Organization & United Nations Children’s Fund (UNICEF). Operational framework for primary health care: transforming vision into action. Geneva: World Health Organization; 2020 (https://iris.who.int/handle/10665/337641).
+
+6.	WHO Civil Society Task Force on Tuberculosis [website]. Geneva: World Health Organization; 2024 (https://www.who.int/groups/civil-society-task-force-on-tb).
+
+
+
+
+  
+
+```{r js_functions}
+# Insert javascript file containing common Kendo number formatting functions ----
+cat(writeLines(readLines(here("report/resources/gtbr_js.htm"))))
+```
+
+
+<script type="text/javascript">
+/* JSON data objects for the figures */
+
+var fig_2_data = `r f2_data %>% select(-n,-n_country) %>% pivot_wider(names_from = variable, values_from = pct) %>% rename("annual"=2, "manual"=3, "nsp"=4, "prog_review"=5) %>% mutate(cat="category") %>% toJSON("rows")`; 
+
+
+</script>
+
+```{js, echo=FALSE}
+/* Functions to create the figures */
+function createFig_2(fig_ID, data, filter) {
+
+  	// Filter the dataset on the country variable
+		dataJSON = data.filter( element => element.entity == filter);
+  
+		$(fig_ID).kendoChart({
+			dataSource: dataJSON,
+			chartArea: {
+				height: 300
+			},	
+			title: {
+				text: filter,
+				color: "black",
+				font: "bold 14px  Arial,Helvetica,sans-serif",
+        align: "center"
+			},	  
+
+			legend: {
+				position: "bottom",
+			},
+			seriesDefaults: {
+				type: "column"
+			},
+			series: [
+			{name: "Development of the national strategic plan",
+				field: "nsp",
+				color: "dodgerblue",
+        tooltip: {
+				visible: true,
+				template: "Development of the national strategic plan: #= value.toPrecision(2) #%"
+			}
+			},{
+        name:  "Preparation and conduct of the TB programme review",
+				field: "prog_review",
+				color: "limegreen",
+        tooltip: {
+				visible: true,
+				template: "Preparation and conduct of the TB programme review: #= value.toPrecision(2) #%"
+			}
+			},{
+        name:  "Development of the annual national TB report",
+				field: "annual",
+				color: "blueviolet",
+        tooltip: {
+				visible: true,
+				template: "Development of the annual national TB report: #= value.toPrecision(2) #%"
+			}
+			},{
+        name:  "Development or update of national TB guidelines or manuals",
+				field: "manual",
+				color: "goldenrod",
+        tooltip: {
+				visible: true,
+				template: "Development or update of national TB guidelines or manuals: #= value.toPrecision(2) #%"
+			}
+			}],
+			valueAxis: {
+				title: {
+					text: "Percentage"
+				},
+				line: {
+					visible: false
+				},
+				max: 100,
+				min: 0,
+			},
+			categoryAxis: {
+				field: "cat",
+				labels: {
+					visible: false
+				},
+				majorGridLines: {
+					visible: false
+				},
+				title: {
+					text: ""
+				}
+			},
+		});
+}
+
+
+```
+
+
+```{js, echo=FALSE}
+/* Create the figures after the document has been loaded */
+
+$(document).ready(function () {
+
+                  createFig_2("#fig_2_Global",fig_2_data,"Global");
+                  createFig_2("#fig_2_AFR",fig_2_data,"African Region");
+                  createFig_2("#fig_2_AMR",fig_2_data,"Region of the Americas");
+                  createFig_2("#fig_2_SEA",fig_2_data,"South-East Asia Region");
+                  createFig_2("#fig_2_EUR",fig_2_data,"European Region");
+                  createFig_2("#fig_2_EMR",fig_2_data,"Eastern Mediterranean Region");
+                  createFig_2("#fig_2_WPR",fig_2_data,"Western Pacific Region");
+                  createFig_2("#fig_2_HBC",fig_2_data,"High TB burden countries");
+
+}); 
+
+```

@@ -1,0 +1,342 @@
+---
+title: "FT: TB and pregnancy"
+author: "Irwin Law" 
+date: "`r Sys.Date()`"
+knit: (function(inputFile, encoding) {
+  out_dir <- "./local";
+  rmarkdown::render(inputFile,
+                    encoding=encoding,
+                    output_dir=file.path(dirname(inputFile), out_dir))})
+output: 
+  html_fragment:
+    # Don’t include a table of contents
+    toc: no
+    # Set standard figure width to 12 inches
+    fig_width: 12
+    # Don’t write figure captions
+    fig_caption: FALSE
+    # Don't embed external resources (stylesheets, JS libraries) in the output 
+    self_contained: FALSE
+    # Don't include <div> tags around a header and the content found until the next header
+    section_divs: FALSE  
+
+---
+  
+```{r setup, include=FALSE}
+
+# Set chunk options.
+# Results "asis" is needed to avoid xtable output being html encoded
+# Suppress messages, warnings and also the ## at the beginning of printed text
+# Set a default figure width too.
+
+knitr::opts_chunk$set(echo = FALSE,
+                      results = "asis",
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.width = 12)
+
+
+
+# Set output options ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Show static chart in addition to Kendo chart?
+show_static = FALSE
+
+# Save underlying data files as CSV and charts as PDF files?
+pdf_csv_folder = here::here("report/local/figures/ft_pregnancy")
+save_csv = TRUE
+save_pdf = TRUE
+
+# Create the output folder (only if it doesn't yet exist)
+dir.create(pdf_csv_folder, showWarnings = FALSE, recursive = TRUE)
+
+
+# Load output packages ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(RColorBrewer)
+library(gtbreport)
+library(jsonlite)
+library(here)
+
+
+# Load R functions ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+source(here("report/functions/html_links.R"))
+source(here("report/functions/output_ggplot.R"))
+
+# Get the data sets and computed values/statistics ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+screening_data <- read.csv(here::here("data/pregnancy/uganda_pregnancy_screening.csv"))
+
+
+```
+
+
+```{r css_js}
+# Add standard stylesheets and javascript to support kendo
+cat(writeLines(readLines(here("report/resources/headers.htm"))))
+```
+
+
+
+# TB and pregnancy 
+
+<span class="red">**_Draft! Prepared `r format(Sys.time(), "%Y-%m-%d %H:%M")` _**</span>  
+
+
+Pregnant and postpartum women<sup>&#10044;</sup> are at increased risk of developing tuberculosis (TB) disease (`r ref_lnk("1, 2")`). In addition, TB during pregnancy is associated with worse maternal outcomes, complications during birth and adverse perinatal outcomes; it contributes to 6--15% of all maternal mortality and puts neonates born to mothers with TB at higher risk of the disease (`r ref_lnk("2&#8211;4")`).
+
+This featured topic:
+
+* highlights current global initiatives and projects that include efforts to improve the prevention and treatment of TB during pregnancy and in the postpartum period;
+* summarizes existing estimates of the burden and risk of TB during pregnancy and postpartum; and
+* discusses what data are of particular relevance for collection, analysis and use by national maternal and child health (MCH) programmes and national TB programmes (NTPs) – either through routine surveillance, sentinel surveillance, periodic surveys or research projects. 
+
+
+## Global initiatives and projects
+  
+The World Health Organization (WHO) published a roadmap for childhood TB in 2013 (`r ref_lnk("5")`). This was updated in 2018 as the Roadmap towards ending TB in children and adolescents (`r ref_lnk("6")`), and again in 2023 in an edition that included attention to maternal TB for the first time (`r ref_lnk("7")`). The roadmap recognizes that effectively addressing TB in infants and young children is inextricably linked to effectively addressing TB in pregnant and postpartum women, and it calls for action on a variety of fronts; for example:
+
+* increasing funding, leadership and accountability; 
+* implementing social protection programmes; 
+* sustaining advocacy at all levels; 
+* building and sustaining local capacity for prevention and management of TB; 
+* scaling up TB prevention; 
+* increasing access to optimal care, and strengthening integrated people-, family- and community-centred strategies; 
+* improving data collection, reporting and use; and 
+* supporting research and innovation. 
+
+Together with the SMART4TB consortium (`r ref_lnk("8")`), WHO is also leading a process to reach consensus on the earlier and optimal inclusion of pregnant and postpartum women in TB drug and vaccine trials. Pregnant women are excluded from most of these trials; hence, they may not benefit from the most optimal and safest options for prevention and treatment. WHO has established five expert working groups to develop discussion documents on the following topics: advocacy, maternal TB surveillance (programmatic and pharmacovigilance), preclinical trials, therapeutics and vaccine trials (`r ref_lnk("5")`). A meeting that aims to reach final consensus is scheduled for February 2025.
+
+
+## Estimated burden and risk of TB 
+
+Estimates of the incidence of TB disease in pregnant and postpartum women are currently limited. In 2019, global estimates presented during an annual global conference on TB and lung diseases suggested that about 200&nbsp;000 pregnant or postpartum women develop TB annually (151&nbsp;000 during pregnancy and 49&nbsp;000 in the postpartum period), mostly in the WHO African Region and South-East Asia Region (`r ref_lnk("9")`). 
+
+More recently, a systematic review has reported incidence risk ratios of 1.3–1.4 for TB disease during pregnancy and 1.9–2.0 in the postpartum period (`r ref_lnk("1")`). It is possible that the former is an underestimate, because there are challenges with the screening and diagnosis of TB in pregnant women due to physiological and immunological changes. The increased risk in the postpartum period may reflect delays in detection during pregnancy and immune changes after delivery. 
+
+Considering the severe implications of TB for both the mother and her infant, interventions are critical to improving the detection and treatment of TB during pregnancy and the postpartum period. Such interventions can be informed by better collection, analysis and use of data, including through research studies that involve pregnant and postpartum women. Of particular importance are data that allow assessment of the coverage of TB screening among pregnant women in high TB burden settings, the proportion of people notified with TB who are pregnant or postpartum, and the TB treatment outcomes of pregnant and postpartum women.
+
+
+## Data collection, analysis and use: what could be done by MCH programmes?
+
+WHO guidelines on TB recommend that all pregnant women living in high TB burden countries and all pregnant women living with HIV should be screened for TB, at every visit to a health care facility (`r ref_lnk("10")`). WHO guidelines on antenatal care (ANC) recommend screening, diagnosis and treatment of TB disease in pregnant women in settings with a high TB burden; this includes TB screening at every ANC visit and contact with a health care worker (`r ref_lnk("11")`). In addition, eligibility for TB preventive treatment (TPT) should be assessed for all pregnant women living with HIV as part of comprehensive HIV care and ANC. 
+
+Despite these recommendations, many countries do not routinely record TB screening among pregnant women (`r ref_lnk("2")`). 
+
+One possible approach to ensure better availability of data related to the provision of TB screening during pregnancy is sentinel surveillance. Another option is to record and report data about TB screening through the routine surveillance system, in all health facilities throughout the country. Uganda is an example of a country in which this is being done. 
+
+In <b>Uganda</b>, the Ministry of Health introduced a TB active case finding (ACF) strategy in 2019. This strategy prioritized provider-initiated TB screening at all primary health care (PHC) entry points, including ANC. The TB ACF strategy includes checking the TB status of all pregnant women presenting for ANC, with links to microbiological testing, TB treatment or TPT. Tools for the country’s National Health Management Information System were updated in 2019, to align recording and reporting tools to the TB ACF strategy. The integrated ANC register includes a column on TB status for each ANC visit; also, all pregnant women identified with presumptive TB are recorded in a presumptive TB register, which is available at the ANC clinic. The data on TB screening in ANC are reported by each PHC facility on a weekly and monthly basis through the routine surveillance system (which uses DHIS2 software) and are used to guide decision-making related to TB ACF. The coverage of screening for TB among pregnant women presenting to ANC increased from 55% in the first quarter of 2020 to 90% in the first quarter of 2024 (`r lnk("Fig. 1")`).
+
+
+### `r anch("Fig. 1")`<span style="color:#F21905">Fig. 1</span> Percentage of pregnant women screened for TB at antenatal clinics on a quarterly basis in Uganda, 2020&#8211;2024
+
+```{r fig_1, fig.alt="Uganda ANC screening rates", out.width = '80%'}
+
+ft_preg_fig1_plot <- screening_data %>% 
+  
+  ggplot(aes(x=factor (cat), y=var, group=1)) +
+  geom_line(size=1, color="red") +
+  ylab ("Percentage") +
+  xlab("Quarter, Year") +
+  geom_vline(xintercept=c(5, 9, 13, 17), linetype='dashed', color=c('grey'))+
+  scale_x_discrete(labels=c("1" = "Q1 2020", 
+                            "2" = "Q2 2020",
+                            "3" = "Q3 2020",
+                            "4" = "Q4 2020",
+                            "5" = "Q1 2021",
+                            "6" = "Q2 2021",
+                            "7" = "Q3 2021",
+                            "8" = "Q4 2021",
+                            "9" = "Q1 2022",
+                            "10" = "Q2 2022",
+                            "11" = "Q3 2022",
+                            "12" = "Q4 2022",
+                            "13" = "Q1 2023",
+                            "14" = "Q2 2023",
+                            "15" = "Q3 2023",
+                            "16" = "Q4 2023",
+                            "17" = "Q1 2024",
+                            "18" = "Q2 2024"))+
+    expand_limits(x = 0, y = 0)+
+    theme_gtb() 
+
+output_ggplot(ft_preg_fig1_plot, screening_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+<div id="fig_1_1_preg"></div>
+
+<div class="footnote">^a^ The total number of women who attended antenatal clinics each quarter ranged from 1.4--1.8 million.</div>
+
+  <hr />
+  <br />
+  
+Two examples of countries in which data on TB screening among pregnant women are being collected, but not yet routinely reported, are Brazil and South Africa. 
+
+In <b>Brazil</b>, pregnant women have access to TB diagnosis and treatment through primary care provided by the country’s Unified Health System. The country’s prenatal guidelines (`r ref_lnk("12")`) include TB screening and inquiring about contact with people with TB; they also provide specific recommendations on TB diagnosis, treatment and follow-up. Information on TB screening is recorded in an individual medical record (maternal health booklet) but is not routinely reported as part of TB surveillance. 
+
+In <b>South Africa</b>, pregnant women are routinely tested for TB (using the Xpert® MTB/RIF Ultra assay) during their first ANC visit. The results are recorded in a TB screening register, but are not routinely reported as part of TB surveillance.
+
+
+## Data collection, analysis and use: what could be done by NTPs?
+  
+WHO’s guidance on TB surveillance (`r ref_lnk("13")`) includes a set of core indicators to report and use for all countries, irrespective of whether the surveillance system for TB is a case-based digital or paper-based aggregated system. These core indicators do not include those related to whether someone is pregnant or in the postpartum period. Five additional core indicators – focused on rapid testing, contact investigation and TPT – are recommended for all countries with case-based digital surveillance for TB. The guidance also provides examples of additional disaggregations of data for people notified as a TB case (e.g. by provider category, risk factor or source of referral) and additional indicators (e.g. treatment outcomes disaggregated by age and sex) that could be considered for use in countries with case-based digital TB surveillance, according to country context. 
+To assess the proportion of people notified as a TB case who were pregnant or postpartum, and their TB treatment outcomes (including how these compare with other people treated for TB), one option could be to include a standard variable related to pregnancy or postpartum status in a case-based digital system. 
+
+As highlighted in the WHO guidance (`r ref_lnk("13")`), there are alternative (and complementary) approaches that can be used to answer specific questions of interest, but do not require the continuous collection of data for everyone diagnosed with TB. Two examples are as follows:
+
+* Data collection for a random sample of medical records. This is expected to entail less overall effort in terms of data collection – for example, record reviews could be used to assess TB treatment outcomes among pregnant and postpartum women, compared with other people treated for TB. 
+* Record linkage between databases. For example, it might be possible to link records in case-based digital databases managed by MCH and TB programmes, and in turn to assess both TB treatment outcomes and TB-related pregnancy outcomes. 
+
+Brazil and South Africa are two examples of countries in which NTPs are collecting data related to pregnancy, on a routine basis.
+
+In <b>Brazil</b>, information about pregnancy status has been incorporated into the TB notification form since 2007. This allows for monitoring of several indicators for pregnant women. Pregnant women with TB represented 0.46% (<i>n</i>=390) of the total number of new TB notifications in 2023. The aim is to use findings to inform implementation of interventions that will result in better maternal and neonatal outcomes.
+
+In <b>South Africa</b>, the NTP added “Pregnant during multidrug-resistant TB and rifampicin-resistant TB (MDR/RR-TB)” as a variable in the digital register for MDR/RR-TB in mid-2023, linked to the planned roll-out of a new regimen containing bedaquiline, pretomanid, linezolid and levofloxacin (BPaL-L). This is expected to help the NTP to monitor treatment outcomes of women treated for MDR/RR-TB while pregnant. National guidelines use the BEAT-Tuberculosis regimen (6 months of bedaquiline, delamanid, linezolid, levofloxacin and clofazimine) instead of BPaL-L for pregnant women with MDR/RR-TB (`r ref_lnk("14")`). 
+
+
+
+## Conclusions
+
+TB in pregnancy and the postpartum period can have serious implications for both mothers and their infants. However, current estimates of the burden of TB in pregnant and postpartum women are limited by the paucity and heterogeneity of available data. The consensus process on the optimal inclusion of pregnant and postpartum women in TB drug and vaccine trials has further highlighted the need for better data on TB, and associated data analysis and use, in these subpopulations. Options for generating the most relevant data include routine surveillance, sentinel surveillance, record linkage and periodic studies. Generating and using the relevant data will require strong collaboration and coordination between NTPs and MCH programmes at country level, supported by global stakeholders, as appropriate. 
+
+<sup>&#10044;</sup><i>Note</i>: The terms ‘women’ and ‘mothers’ are used in this featured topic. These terms are intended to be inclusive of all people who experience pregnancy, regardless of their gender identity. In the context of this featured topic, post-partum is used to refer to the period up to 6 months after giving birth.
+
+  
+`r anch("refs")`
+
+<hr style="border:1px solid gray20">
+
+**References**
+
+
+1.	Morton AJ, Roddy Mitchell A, Melville RE, Hui L, Tong S, Dunstan SJ et al. Mycobacterium tuberculosis infection in pregnancy: a systematic review. medRxiv. 2024. doi: https://doi.org/10.1101/2024.08.10.24311783.
+
+2.	WHO operational handbook on tuberculosis. Module 5: management of tuberculosis in children and adolescents. Geneva: World Health Organization; 2022 (https://iris.who.int/handle/10665/352523).
+
+3.	Maugans C, Loveday M, Hlangu S, Waitt C, Van Schalkwyk M, van de Water B et al. Best practices for the care of pregnant people living with TB. Int J Tuberc Lung Dis. 2023;27:357–66. doi: https://doi.org/10.5588/ijtld.23.0031.
+
+4.	Mathad JS, Gupta A. Tuberculosis in pregnant and postpartum women: epidemiology, management, and research gaps. Clin Infect Dis. 2012;55:1532–49. doi: https://doi.org/10.1093/cid/cis732.
+
+5.	Roadmap for childhood tuberculosis: towards zero deaths. Geneva: World Health Organization; 2013 (https://iris.who.int/handle/10665/89506).
+
+6.	Roadmap towards ending TB in children and adolescents, 2nd edition. Geneva: World Health Organization; 2018 (https://iris.who.int/handle/10665/275422).
+
+7.	Roadmap towards ending TB in children and adolescents, 3rd edition. Geneva: World Health Organization; 2023 (https://iris.who.int/handle/10665/373949).
+
+8.	Tuberculosis & pregnancy. Building consensus on inclusion in research. Washington, DC: SMART4TB Consortium, United States Agency for International Development; 2024 (https://tbcenter.jhu.edu/wp-content/uploads/2024/02/SMART4TB-Pregnancy-and-TB-Report.pdf).
+
+9.	Mafirakureva N. Revisiting the burden of TB in pregnant and post-partum women. In: Abstract Book: 50th Union World Conference on Lung Health of the International Union Against Tuberculosis and Lung Disease, Hyderabad, India, 30 October – 2 November 2019. Int J Tuberc Lung Dis; 2019 (https://theunion.org/sites/default/files/2020-09/20191101_UNION2019_Abstracts_Final_0.pdf).
+
+10.	World Health Organisation. Consolidated guidelines on tuberculosis. Module 6: tuberculosis and comorbidities. Geneva, Switzerland: World Health Organization; 2024 (https://iris.who.int/handle/10665/376584).
+
+11.	WHO recommendations on antenatal care for a positive pregnancy experience: screening, diagnosis and treatment of tuberculosis disease in pregnant women. Geneva: World Health Organization; 2023 (https://iris.who.int/handle/10665/365953).
+
+12.	Low-risk prenatal care [Atenção ao pré-natal de baixo risco] 1st revised edition. Brasília: Ministério da Saúde. Secretaria de Atenção à Saúde. Departamento de Atenção Básica; 2013 (http://www.as.saude.ms.gov.br/wp-content/uploads/2016/07/Aten%C3%A7%C3%A3o-ao-Pr%C3%A9-natal-de-Baixo-Risco.pdf).
+
+13.	Consolidated guidance on tuberculosis data generation and use. Module 1: tuberculosis surveillance. Geneva: World Health Organization; 2024 (https://iris.who.int/handle/10665/376612).
+
+14.	Clinical management of rifampicin-resistant tuberculosis. Updated clinical reference guide. Pretoria: Department of Health, Republic of South Africa; 2023 (https://www.health.gov.za/wp-content/uploads/2023/10/Updated-RR-TB-Clinical-Guidelines-September-2023.pdf).
+
+
+
+
+```{r js_functions}
+# Insert javascript file containing common Kendo number formatting functions ----
+cat(writeLines(readLines(here("report/resources/gtbr_js.htm"))))
+```
+
+
+<script type="text/javascript">
+
+/* JSON data objects for the figures */
+
+var fig_1_1_preg_data = `r screening_data %>% toJSON("rows")`; 
+ 
+</script>
+
+
+
+```{js, echo=FALSE}
+
+
+/* Functions to create the figures */
+
+
+function createFig_1_1_preg(fig_ID) {
+
+		$(fig_ID).kendoChart({
+			dataSource: fig_1_1_preg_data,
+			chartArea: {
+				height: 500
+			},	
+			legend: {
+				position: "bottom"
+			},
+      series: [{
+				type: "line",
+        name: "Percentage screened",
+				field: "var",
+				color: "red",
+				tooltip: {
+					visible: true,
+					template: "Percentage screened for TB (#= category #): #= Number((value).toPrecision(2)) #%"
+				}
+			},],    
+			valueAxis: {
+        labels: {
+					template: "#= axis_spacer(value) #"
+				},
+				title: {
+					text: "Percentage",
+					visible: true
+				},
+        min: 0,
+				line: {
+					visible: false
+				}
+			},
+			categoryAxis: {
+				field: "period",
+				labels: {
+					rotation: "auto",
+          step: 1
+				},
+				majorGridLines: {
+					visible: false
+				},
+				title: {
+					text: "Quarter, year",
+					visible: true
+				}
+			}
+
+		});
+}
+
+
+
+```
+
+
+```{js, echo=FALSE}
+
+/* Create the figure after the document has been loaded */
+
+  $(document).ready(function () {
+  
+  createFig_1_1_preg("#fig_1_1_preg",fig_1_1_preg_data);
+
+});  
+
+```
+
+
+
+
+

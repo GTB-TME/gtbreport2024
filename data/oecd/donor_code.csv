@@ -1,0 +1,183 @@
+﻿Donor code,Donor name (EN),Donor name (FR)
+1,Austria,Autriche
+2,Belgium,Belgique
+3,Denmark,Danemark
+4,France,France
+5,Germany,Allemagne
+6,Italy,Italie
+7,Netherlands,Pays-Bas
+8,Norway,Norvège
+9,Portugal,Portugal
+10,Sweden,Suède
+11,Switzerland,Suisse
+12,United Kingdom,Royaume-Uni
+18,Finland,Finlande
+20,Iceland,Islande
+21,Ireland,Irlande
+22,Luxembourg,Luxembourg
+40,Greece,Grèce
+50,Spain,Espagne
+61,Slovenia,Slovénie
+68,Czech Republic,République tchèque
+69,Slovak Republic,République slovaque
+75,Hungary,Hongrie
+76,Poland,Pologne
+84,Lithuania,Lituanie
+301,Canada,Canada
+302,United States,Etats-Unis
+701,Japan,Japon
+742,Korea,Corée
+801,Australia,Australie
+820,New Zealand,Nouvelle-Zélande
+918,EU Institutions,Institutions de l'UE
+104,Nordic Development Fund,Fonds du dév. nordique
+807,UNEP,PNUE
+811,Global Environment Facility,Fonds pour l'environnement mondial
+812,Montreal Protocol,Protocole de Montréal
+901,International Bank for Reconstruction and Development,Banque internationale pour la reconstruction et le développement
+902,Multilateral Investment Guarantee Agency,Agence multilatérale de garantie des investissements
+903,International Finance Corporation,Société financière international
+905,International Development Association,Association internationale de développement
+906,Caribbean Development Bank,Banque de développement des Caraïbes
+907,International Monetary Fund,Fond monétaire international
+909,Inter-American Development Bank,Banque Interaméricaine de développement
+910,Central American Bank for Economic Integration,Banque centraméricaine d'intégration économique
+913,African Development Bank,Banque Africaine de développement
+914,African Development Fund,Fonds Africaine de développement
+915,Asian Development Bank,Banque Asiatique de développement
+921,Arab Fund (AFESD),Fonds arabe (FADES)
+923,UN Peacebuilding Fund,Fonds de consolidation de la paix-ONU
+926,Council of Europe,Conseil de l'Europe
+928,World Health Organisation,Organisation mondiale de la santé
+932,Food and Agriculture Organisation,Organisation pour l'alimentation et l'agriculture
+940,International Labour Organisation,Organisation internationale du Travail
+944,International Atomic Energy Agency,Agence internationale de l'énergie atomique
+948,UNECE,CEE-ONU
+951,OPEC Fund for International Development,Fonds OPEP pour le développement international
+952,OAPEC,OAPEC
+953,Arab Bank for Economic Development in Africa,Banque arabe pour le développement économique en Afrique
+954,Special Arab Aid Fund for Africa,Fonds spécial arabe d'aide à l'Afrique
+956,IMF Trust Fund,IMF Trust Fund
+958,IMF (Concessional Trust Funds),FMI (Fonds fiduciaires concessionnels)
+959,UNDP,PNUD
+960,UNTA,ATNU
+962,United Nations Conference on Trade and Development,Conférence des Nations Unies sur le commerce et le développement
+963,UNICEF,UNICEF
+964,UNRWA,UNRWA
+966,WFP,PAM
+967,UNHCR,HCR
+971,UNAIDS,UNAIDS
+974,UNFPA,FNUAP
+976,Islamic Development Bank,Banque de développement islamique
+978,OSCE,OSCE
+979,Islamic Monetary Fund,Fond monétaire islamique
+980,Arab Fund for Technical Assistance to African and Arab Countries,Fonds arabe pour l'assistance technique aux pays africains et arabes
+981,Black Sea Trade & Development Bank,Banque de développement de la mer Noire
+982,GODE,GODE
+983,Other Arab Agencies,Autres Agences Arabes
+988,IFAD,FIDA
+990,European Bank for Reconstruction and Development,Banque européenne pour la reconstruction et le développement
+992,UN AGENCIES,AGENCES DE L'ONU
+997,Global Partnership for Education,Partenariat mondial pour l'Éducation
+1011,Climate Investment Funds,Fonds d'investissement climatique
+1012,Adaptation Fund,Fonds d'adaptation
+1013,Council of Europe Development Bank,Banque de développement du Conseil de l'Europe
+1014,Private Infrastructure Development Group,Groupe du développement des infrastructures privées
+1015,Development Bank of Latin America,Banque de développement de l'Amérique latine
+1016,Green Climate Fund,Fonds vert pour le climat
+1017,Credit Guarantee and Investment Facility,Credit Guarantee and Investment Facility
+1018,Global Energy Efficiency and Renewable Energy Fund,Fonds mondial de l'efficacité énergétique et des énergies renouvelables
+1019,IDB Invest,BID Invest
+1020,Central Emergency Response Fund,Fonds central d'intervention pour les urgences humanitaires
+1023,World Tourism Organisation,Organisation mondiale du tourisme
+1024,Asian Infrastructure Investment Bank,Banque asiatique d'investissement dans les infrastructures
+1025,Center of Excellence in Finance,Centre d'excellence en finance
+1037,International Investment Bank,Banque internationale d'investissement
+1038,UN Institute for Disarmament Research,Institut des Nations unies pour la recherche sur le désarmement
+1039,UN Capital Development Fund,UN Capital Development Fund
+1041,Eurasian Fund for Stabilization and Development,Eurasian Fund for Stabilization and Development
+1044,New Development Bank,New Development Bank
+1045,North American Development Bank,North American Development Bank
+1046,UN Women,ONU Femmes
+1047,COVID-19 Response and Recovery Multi-Partner Trust Fund,COVID-19 Response and Recovery Multi-Partner Trust Fund
+1048,Joint Sustainable Development Goals Fund,Fonds conjoint des objectifs de développement durable
+1049,International Commission on Missing Persons,Commission internationale pour les personnes disparues
+1050,WHO-Strategic Preparedness and Response Plan,OMS-Plan stratégique de préparation et de réponse
+1052,International Centre for Genetic Engineering and Biotechnology,Centre international de génie génétique et de biotechnologie
+1311,Global Alliance for Vaccines and Immunization,Alliance mondiale pour les vaccins et la vaccination
+1312,Global Fund,Fonds mondial
+1313,Global Green Growth Institute,Institut mondial de la croissance verte
+1401,WTO - International Trade Centre,Centre du commerce international de l'OMC
+1406,United Nations Industrial Development Organization,ONUDI
+26,Monaco,Monaco
+30,Cyprus,Chypre
+45,Malta,Malte
+55,Türkiye,Türkiye
+62,Croatia,Croatie
+70,Liechtenstein,Liechtenstein
+72,Bulgaria,Bulgarie
+77,Romania,Roumanie
+82,Estonia,Estonie
+83,Latvia,Lettonie
+87,Russia,Russie
+130,Algeria,Algérie
+133,Libya,Libye
+358,Mexico,Mexique
+543,Iraq,Irak
+546,Israel,Israël
+552,Kuwait,Koweit
+561,Qatar,Qatar
+566,Saudi Arabia,Arabie saoudite
+576,United Arab Emirates,Emirats arabes unis
+611,Azerbaijan,Azerbaïdjan
+613,Kazakhstan,Kazakhstan
+732,Chinese Taipei,Taipei chinois
+764,Thailand,Thaïlande
+765,Timor-Leste,Timor oriental
+1601,Bill & Melinda Gates Foundation,Fondation Bill et Melinda Gates
+1602,Dutch Postcode Lottery,Dutch Postcode Lottery
+1603,Swedish Postcode Lottery,Swedish Postcode Lottery
+1604,People's Postcode Lottery,People's Postcode Lottery
+1605,MetLife Foundation,Fondation MetLife
+1606,Mastercard Foundation,Fondation Mastercard
+1607,Grameen Crédit Agricole Foundation,Fondation Grameen Crédit Agricole
+1608,IKEA Foundation,Fondation IKEA
+1609,Bernard van Leer Foundation,Fondation Bernard van Leer
+1610,MAVA Foundation,"MAVA, Fondation pour la nature"
+1611,Oak Foundation,Fondation Oak
+1612,H&M Foundation,Fondation H&M
+1613,Laudes Foundation,Fondation Laudes
+1614,Charity Projects Ltd (Comic Relief),Charity Projects Ltd (Comic Relief)
+1615,Children's Investment Fund Foundation,Children's Investment Fund Foundation
+1616,Gatsby Charitable Foundation,Gatsby Charitable Foundation
+1617,Conrad N. Hilton Foundation,Fondation Conrad N. Hilton
+1618,David & Lucile Packard Foundation,Fondation David et Lucile Packard
+1619,John D. & Catherine T. MacArthur Foundation,Fondation John D. et Catherine T. MacArthur
+1620,Carnegie Corporation of New York,Carnegie Corporation of New York
+1621,Michael & Susan Dell Foundation,Fondation Michael et Susan Dell
+1622,"Omidyar Network Fund, Inc.","Omidyar Network Fund, Inc."
+1623,Rockefeller Foundation,Fondation Rockefeller
+1624,William & Flora Hewlett Foundation,Fondation William et Flora Hewlett
+1625,Arcus Foundation,Fondation Arcus
+1626,Gordon and Betty Moore Foundation,Fondation Gordon et Betty Moore
+1627,Ford Foundation,Fondation Ford
+1628,Wellcome Trust,Wellcome Trust
+1629,UBS Optimus Foundation,Fondation UBS Optimus
+1630,World Diabetes Foundation,World Diabetes Foundation
+1631,McKnight Foundation,Fondation McKnight
+1632,Citi Foundation,Fondation Citi
+1633,LEGO Foundation,Fondation LEGO
+1634,Norwegian Postcode Lottery,Norwegian Postcode Lottery
+1635,BBVA Microfinance Foundation,Fondation Microfinance BBVA
+1636,Jacobs Foundation,Fondation Jacobs
+1637,Arcadia Fund,Fonds Arcadia
+1638,Margaret A. Cargill Foundation,Fondation Margaret A. Cargill
+1639,La Caixa Banking Foundation,Fondation la Caixa
+1640,Bloomberg Family Foundation,Bloomberg Family Foundation
+1641,Susan T. Buffett Foundation,Fondation Susan T. Buffett
+1642,Howard G. Buffett Foundation,Fondation Howard G. Buffett
+1643,Open Society Foundations,Open Society Foundations
+1644,Fondation Botnar,Fondation Botnar
+1645,CHANEL Foundation,Fondation CHANEL
+1646,Bezos Earth Fund,Bezos Earth Fund
+1647,German Postcode Lottery,German Postcode Lottery

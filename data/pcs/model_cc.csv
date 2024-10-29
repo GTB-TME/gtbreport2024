@@ -1,0 +1,98 @@
+"source","iso3","country","year","grp","catast_pct","catast_pct_lo","catast_pct_hi"
+"modelled","AFG","Afghanistan",2021,"overall",94.39,89.39,97.73
+"modelled","AGO","Angola",2021,"overall",52.16,44.46,60.55
+"modelled","ALB","Albania",2021,"overall",57.21,47.98,66.31
+"modelled","ARM","Armenia",2021,"overall",80.48,74.55,86.11
+"modelled","ASM","American Samoa",2021,"overall",71.56,58.92,82.89
+"modelled","AZE","Azerbaijan",2021,"overall",40.67,30.88,52.02
+"modelled","BDI","Burundi",2021,"overall",92.38,86.15,96.71
+"modelled","BGD","Bangladesh",2021,"overall",42.75,36.63,49.55
+"modelled","BGR","Bulgaria",2021,"overall",51.61,42.56,61.2
+"modelled","BIH","Bosnia and Herzegovina",2021,"overall",86.12,76.62,93.38
+"modelled","BLR","Belarus",2021,"overall",50.69,41.23,60.64
+"modelled","BLZ","Belize",2021,"overall",51.65,41.99,61.99
+"modelled","BOL","Bolivia",2021,"overall",76.9,69.88,83.46
+"modelled","BTN","Bhutan",2021,"overall",40.19,29.39,53.38
+"modelled","BWA","Botswana",2021,"overall",67.31,57.82,76.1
+"modelled","CAF","Central African Republic",2021,"overall",93.73,88.25,97.45
+"modelled","CIV","Côte d'Ivoire",2021,"overall",44.9,33.5,58.03
+"modelled","CMR","Cameroon",2021,"overall",66.32,59.86,72.77
+"modelled","COG","Congo",2021,"overall",46.53,39.43,54.46
+"modelled","COM","Comoros",2021,"overall",82.76,72.7,90.54
+"modelled","CPV","Cabo Verde",2021,"overall",50.14,41.55,59.45
+"modelled","CRI","Costa Rica",2021,"overall",79.47,64.61,90.62
+"modelled","DJI","Djibouti",2021,"overall",31.84,24.61,40.67
+"modelled","DMA","Dominica",2021,"overall",72.59,57.76,84.86
+"modelled","DOM","Dominican Republic",2021,"overall",52.99,43.68,62.69
+"modelled","DZA","Algeria",2021,"overall",61.68,55.53,68.16
+"modelled","ECU","Ecuador",2021,"overall",69.09,62.47,75.67
+"modelled","EGY","Egypt",2021,"overall",59.97,52.71,67.45
+"modelled","ERI","Eritrea",2021,"overall",68.37,60.06,76.44
+"modelled","ETH","Ethiopia",2021,"overall",52.56,44,61.5
+"modelled","FSM","Micronesia",2021,"overall",81.32,73.45,88.87
+"modelled","GAB","Gabon",2021,"overall",46.95,36.4,57.78
+"modelled","GEO","Georgia",2021,"overall",61.95,53.62,70.12
+"modelled","GIN","Guinea",2021,"overall",54.32,43.68,65.75
+"modelled","GMB","Gambia",2021,"overall",59.42,47.87,71.28
+"modelled","GNB","Guinea-Bissau",2021,"overall",91.89,86.46,95.94
+"modelled","GNQ","Equatorial Guinea",2021,"overall",46.51,32.74,61.03
+"modelled","GRD","Grenada",2021,"overall",69.22,54.31,82.04
+"modelled","GTM","Guatemala",2021,"overall",65.18,57.09,72.92
+"modelled","GUY","Guyana",2021,"overall",52.82,42.06,63.96
+"modelled","HND","Honduras",2021,"overall",67.64,61.44,73.77
+"modelled","HTI","Haiti",2021,"overall",64.06,58.06,70.06
+"modelled","IRN","Iran",2021,"overall",74.39,66.14,82.09
+"modelled","IRQ","Iraq",2021,"overall",50.24,38.98,61.71
+"modelled","JAM","Jamaica",2021,"overall",55.45,45.01,66.33
+"modelled","JOR","Jordan",2021,"overall",79.39,72.15,86.08
+"modelled","KAZ","Kazakhstan",2021,"overall",25.04,16.83,36.47
+"modelled","KGZ","Kyrgyz Republic",2021,"overall",54.2,42.3,66.94
+"modelled","KIR","Kiribati",2021,"overall",85.34,78.39,91.19
+"modelled","LBN","Lebanon",2021,"overall",76.92,69.14,84.64
+"modelled","LBR","Liberia",2021,"overall",92.43,86.57,96.56
+"modelled","LBY","Libya",2021,"overall",68.47,58.5,77.45
+"modelled","LCA","St. Lucia",2021,"overall",38.86,27.53,51.81
+"modelled","LKA","Sri Lanka",2021,"overall",60.13,50.93,69.23
+"modelled","MAR","Morocco",2021,"overall",44.02,35.9,52.87
+"modelled","MDG","Madagascar",2021,"overall",74.67,66.12,82.68
+"modelled","MDV","Maldives",2021,"overall",74.07,63.14,83.87
+"modelled","MEX","Mexico",2021,"overall",51.93,41.69,62.46
+"modelled","MHL","Marshall Islands",2021,"overall",89.41,82.02,95.45
+"modelled","MKD","Macedonia, North",2021,"overall",69.71,60.13,78.71
+"modelled","MNE","Montenegro",2021,"overall",81.13,69.32,90.42
+"modelled","MOZ","Mozambique",2021,"overall",84.6,75.29,91.98
+"modelled","MRT","Mauritania",2021,"overall",55.34,48.18,62.83
+"modelled","MWI","Malawi",2021,"overall",85.16,78.21,90.98
+"modelled","MYS","Malaysia",2021,"overall",37.91,27.31,50.21
+"modelled","NIC","Nicaragua",2021,"overall",79.7,72.84,86.2
+"modelled","PAK","Pakistan",2021,"overall",58.43,51.17,65.98
+"modelled","PER","Peru",2021,"overall",45.92,36.64,56.03
+"modelled","PRK","Korea, Democratic People’s Republic of",2021,"overall",81.17,72.97,88.29
+"modelled","PRY","Paraguay",2021,"overall",60.91,54.11,68.1
+"modelled","PSE","West Bank and Gaza",2021,"overall",51.81,41.92,62.42
+"modelled","RWA","Rwanda",2021,"overall",72.82,63.85,81.02
+"modelled","SDN","Sudan",2021,"overall",70.24,62.42,77.85
+"modelled","SEN","Senegal",2021,"overall",59.36,52.55,66.51
+"modelled","SLE","Sierra Leone",2021,"overall",91.03,84.74,95.61
+"modelled","SOM","Somalia",2021,"overall",84.98,76.86,91.86
+"modelled","SRB","Serbia",2021,"overall",85.99,75.51,93.73
+"modelled","SSD","South Sudan",2021,"overall",74.53,67.73,80.91
+"modelled","STP","São Tomé and Principe",2021,"overall",79,70.92,85.8
+"modelled","SUR","Suriname",2021,"overall",79.44,73.53,85.27
+"modelled","SWZ","Swaziland",2021,"overall",69.06,62.31,75.46
+"modelled","SYR","Syrian Arab Republic",2021,"overall",60.03,48.28,71.75
+"modelled","TCD","Chad",2021,"overall",64.71,52.31,76.98
+"modelled","TGO","Togo",2021,"overall",68.22,58.73,77.13
+"modelled","TJK","Tajikistan",2021,"overall",80.3,73.02,87.19
+"modelled","TKM","Turkmenistan",2021,"overall",66.31,55.44,76.41
+"modelled","TON","Tonga",2021,"overall",53.31,43.69,63.37
+"modelled","TUN","Tunisia",2021,"overall",71.78,64.27,79.09
+"modelled","TUR","Turkey",2021,"overall",39.51,30.9,49.41
+"modelled","TUV","Tuvalu",2021,"overall",77.91,69.21,86.41
+"modelled","UKR","Ukraine",2021,"overall",64.93,56.73,72.75
+"modelled","VCT","St. Vincent and the Grenadines",2021,"overall",45.3,33.66,57.94
+"modelled","VEN","Venezuela",2021,"overall",45.07,32.71,58.63
+"modelled","VUT","Vanuatu",2021,"overall",46.27,38.15,55.23
+"modelled","WSM","Samoa",2021,"overall",57.78,47.84,68.12
+"modelled","XKX","Kosovo",2021,"overall",70.08,61.66,78.09
+"modelled","YEM","Yemen",2021,"overall",65.73,57.64,73.79

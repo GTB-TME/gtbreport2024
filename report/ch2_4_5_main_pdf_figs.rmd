@@ -1,0 +1,887 @@
+---
+title: "Section 2.1 Case notifications"
+author: "Takuya Yamanaka"
+date: "`r Sys.Date()`"
+knit: (function(inputFile, encoding) {
+      out_dir <- "./local";
+      rmarkdown::render(inputFile,
+                        encoding=encoding,
+                        output_dir=file.path(dirname(inputFile), out_dir))})
+output: 
+  html_fragment:
+    # Do not include a table of contents
+    toc: no
+    # Set standard figure width to 12 inches
+    fig_width: 12
+    # Do not write figure captions
+    fig_caption: FALSE
+    css: columns.css
+    # to save intermediate .png
+    keep_md: true    
+    # Don't embed external resources (stylesheets, JS libraries) in the output 
+    self_contained: False
+
+---
+
+
+```{r setup, include=FALSE}
+# Set chunk options.
+# Results "asis" is useful to output markdown from a function
+# Suppress messages, warnings and also the ## at the beginning of printed text
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      results = "asis",
+                      message = FALSE,
+                      warning = FALSE,
+                      error = TRUE)  # TEMP error=TRUE for debugging!
+
+# Load output packages ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(RColorBrewer)
+# devtools::install_github("glaziou/whomap")
+library(whomap)
+# devtools::install_github("glaziou/gtbreport")
+library(gtbreport)
+library(here)
+
+library(tidyverse)
+library(ggrepel)
+
+library(kableExtra)
+library(jsonlite)
+library(Cairo)
+
+# Load R functions ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+source(here("report/functions/html_links.R"))
+source(here("report/functions/output_ggplot.R"))
+
+# Get the data sets and computed values/statistics for section 2.1 ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+source(here('report/ch2-1_prepare_data.r'))
+source(here('report/ch2-2_prepare_data.r'))
+source(here('report/ch2-3_prepare_data.r'))
+source(here('report/ch2-4_prepare_data.r'))
+source(here('report/ch4-1_prepare_data.r'))
+source(here('report/ch4-2_prepare_data.r'))
+source(here('report/ch5-1_prepare_data.r'))
+source(here('report/ch5-2_prepare_data.r'))
+source(here('report/ch5-3_prepare_data.r'))
+
+# Show static chart in addition to Kendo chart?
+show_static = T
+
+# Save underlying data files as CSV and charts as PDF files?
+pdf_csv_folder = here::here("report/local/figures/main_pdf")
+save_csv = TRUE
+save_pdf = TRUE
+save_cairo = TRUE
+
+# Create the output folder (only if it doesn't yet exist)
+dir.create(pdf_csv_folder, showWarnings = FALSE, recursive = TRUE)
+
+```
+
+```{css, echo=FALSE}
+
+/* Deaths averted table */
+/* Recreating simple striped bootstrap table */
+#deaths_averted_table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  /* Next two lines to allow horizontal scrolling on narrow screens */
+  display: block;
+  overflow-x: auto;
+}
+
+#deaths_averted_table th {
+  border-bottom: 2px solid #DDDDDD;
+  padding: 8px;
+}
+
+#deaths_averted_table td {
+  border-top: 1px solid #DDDDDD;
+  padding: 8px;
+}
+
+/* light gray for odd rows */
+#deaths_averted_table tr:nth-child(odd) td {
+  background-color: #F5F5F5;	
+}
+
+/* Bold for the final row with thick line above */
+#deaths_averted_table tr:last-child td {
+  border-top: 2px solid #DDDDDD;
+  font-weight:bold;	
+}
+
+/* light gray when hovering over a row */
+#deaths_averted_table tr:hover td {
+  background-color: #DDDDDD;
+}
+
+/* Centre-align all column headings except for the first */
+#deaths_averted_table th:not(:first-child) {
+  text-align: center !important;
+}
+
+/* prevent numbers from wrapping in any of the columns */
+#deaths_averted_table td {
+  white-space: nowrap;
+}
+
+
+```
+
+```{r css_js}
+# Add standard stylesheets and javascript to support kendo
+cat(writeLines(readLines(here("report/resources/headers.htm"))))
+```
+
+# Figures for the main report - from section 2, 4 and 5
+
+<span class="red">**Draft! Prepared `r Sys.Date()` using country-reported data snapshot files from `r format(as.Date(snapshot_date), format="%d %B %Y")`!**</span>
+
+
+### <span style="color:#F21905">Fig. 16</span> Global trend in case notifications of people newly diagnosed with TB (black) and the estimated number of incident TB cases (green), 2010&#8211;`r report_year-1`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results = "asis", dev = 'png', fig_16, fig.alt="Global trend in notifications of new and relapse TB cases"} 
+
+ f16_data <- f2.3.1_data %>%
+  filter(entity=="Global") 
+  
+ f16_plot <- f16_data %>% 
+  
+  filter(entity=="Global") %>%
+  
+  ggplot(aes(x=year, y=c_newinc, ymin=0)) +
+  
+  geom_line(size=1) +
+  
+  geom_ribbon(aes(x=year, 
+                  ymin=e_inc_num_lo, 
+                  ymax=e_inc_num_hi),
+              fill=gtbreport::palette_gtb("inc"),
+              alpha=0.4) +
+  
+  geom_line(aes(year, e_inc_num),
+            size=1,
+            colour=gtbreport::palette_gtb("inc")) +
+
+  facet_wrap( ~ entity, ncol = 4, scales="free_y") +
+  
+  scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2015, 2020, report_year-1)) +
+
+  # display y-axis scale in millions
+  scale_y_continuous(name = "Millions per year", 
+                     # Use the remainder operator in the labeller function to make sure we don't get weird effects
+                     # when plotting small numbers
+                     labels = function(i){ifelse((i/1e6) %% 1 == 0, round(i/1e6), round(i/1e6, 1))}) +
+
+  theme_gtb()  +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank(),
+        strip.text = element_blank())
+
+  
+output_ggplot(f16_plot, f16_data, show_static, pdf_csv_folder, save_csv, save_cairo, save_pdf=F)
+
+
+```
+
+<hr />
+<br />
+
+
+### <span style="color:#F21905">Fig. 17</span> Regional trends in case notifications of people newly diagnosed with TB (black) and the estimated number of incident TB cases (green), 2010&#8211;`r report_year-1`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results = "asis", dev = 'png', fig_17, fig.alt="Trends in notifications of new and relapse TB cases by WHO region",fig.height=6} 
+
+ f17_data <- f2.3.1_data %>%
+  filter(entity!="Global") 
+
+ f17_plot <- f17_data %>% 
+    
+  filter(entity!="Global") %>%
+
+  ggplot(aes(x=year, y=c_newinc, ymin=0)) +
+  
+  geom_line(size=1) +
+  
+  geom_ribbon(aes(x=year, 
+                  ymin=e_inc_num_lo, 
+                  ymax=e_inc_num_hi),
+              fill=gtbreport::palette_gtb("inc"),
+              alpha=0.4) +
+  
+  geom_line(aes(year, e_inc_num),
+            size=1,
+            colour=gtbreport::palette_gtb("inc")) +
+
+  facet_wrap( ~ entity, ncol = 3, scales="free_y") +
+  
+  scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2015, 2020, report_year-1)) +
+
+  # display y-axis scale in millions
+  scale_y_continuous(name = "Millions per year", 
+                     # Use the remainder operator in the labeller function to make sure we don't get weird effects
+                     # when plotting small numbers
+                     labels = function(i){ifelse((i/1e6) %% 1 == 0, round(i/1e6), round(i/1e6, 1))}) +
+
+  theme_gtb()  +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+  
+
+output_ggplot(f17_plot, f17_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+<hr />
+<br />
+
+
+### <span style="color:#F21905">Fig. 18</span> Percentage of people newly diagnosed with pulmonary TB who were bacteriologically confirmed, globally and for WHO regions, 2010&#8211;`r report_year-1`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results = "asis", dev = 'png', fig_18, fig.alt="Trends in notifications of new and relapse TB cases by WHO region",fig.height=6} 
+
+ f18_data <- f2.2.1_data 
+
+ f18_plot <- f18_data %>% 
+  
+  ggplot(aes(x=year, y=bacconf_pct)) +
+    geom_line(size = 1.5, colour = "seagreen4") +
+    scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2015, 2020, report_year-1)) +
+    scale_y_continuous(name = "Percentage bacteriologically confirmed") +
+    expand_limits(y=c(0,100)) +
+    facet_wrap( ~ entity, ncol = 4) +
+
+    theme_gtb() +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+
+  
+
+output_ggplot(f18_plot, f18_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+
+<hr />
+<br />
+
+
+### <span style="color:#F21905">Fig. 19</span> Percentage of people newly diagnosed with TB who were initially tested with a WHO-recommended diagnostic rapid test (WRD), globally and for WHO regions, 2015&#8211;`r report_year-1`
+```{r fig_19, fig.alt="Trends in notification - a"}
+
+f19_data <- f2.2.5_data
+
+f19_plot <- f19_data %>% 
+  
+  ggplot(aes(x=year, y=wrd_pcnt)) +
+  geom_line(size = 1.5, colour = "blueviolet") +
+  scale_x_continuous(name="Year",
+                     breaks = c(2015, 2017, 2019, 2021, report_year-1)) +
+  scale_y_continuous(name = "Percentage") +
+  expand_limits(y=c(0,100)) +
+  
+  facet_wrap( ~ entity, ncol = 4) +
+
+  theme_gtb() +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+
+output_ggplot(f19_plot, f18_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+
+```
+
+<hr />
+<br />
+
+### <span class="red">Fig. 20</span> Percentage of people newly diagnosed with TB who were initially tested with a WHO-recommended rapid diagnostic test (WRD), by country,^a^ `r report_year-1`
+
+```{r fig_20, fig.alt="World map showing percent of TB cases tested with rapid diagnostics"}
+
+f20_data <- f2.2.6_data 
+
+f20_plot <- f20_data %>% 
+  
+  whomap(colours = brewer.pal(5, "Purples"),
+         legend.title = "Percentage (%)",
+         na.col = "white",
+         water.col = "white")
+
+output_ggplot(f20_plot, f20_data, show_static = TRUE, pdf_csv_folder, save_csv, save_pdf)
+
+```
+<div class="footnote">^a^ Data are for notified cases.</div>
+<hr />
+<br />
+
+### <span class="red">Fig. 21</span> Estimated TB treatment coverage,^a^ globally and WHO regions, 2010&#8211;`r report_year-1`
+<div class="subhead">The dashed line represents the global target of 90% by 2027 that was set at the 2023 UN high-level meeting on TB.</div>  
+
+```{r fig_21, fig.alt="trend of TB treatment coverage regionally and globally, from", eval=show_estimates}
+
+f21a_data <- f2.3.2a_data 
+
+f21a_plot <- f21a_data %>% 
+  
+  ggplot(aes(x=year, y=c_cdr, ymin=0, ymax=100)) +
+  
+  geom_line(size=1) +
+  
+  geom_ribbon(aes(x=year, 
+                  ymin=c_cdr_lo , 
+                  ymax=c_cdr_hi),
+              fill=c("Darkgreen"),
+              alpha=0.4) +
+  
+  geom_line(aes(year, c_cdr),
+            size=1,
+            colour=c("Darkgreen")) +
+
+  geom_hline(yintercept = 90, size=1, col="grey30", 
+             lty="dashed", alpha=.85 ) +
+
+  annotate("text", x = 2016.5, y = 94, label = "Target of 90% by 2027 set at 2023 UN high-level meeting n TB",size=4, col="grey10") +
+
+    scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2020, report_year-1)) +
+  facet_wrap( ~ entity, ncol = 3) +
+
+  # display y-axis scale 
+  scale_y_continuous(name = "Treatment coverage (%)") +
+
+  theme_gtb()  +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+
+f21b_data <- f2.3.2b_data 
+  
+f21b_plot <- f21b_data %>% 
+  
+  ggplot(aes(x=year, y=c_cdr, ymin=0, ymax=100)) +
+  
+  geom_line(size=1) +
+  
+  geom_ribbon(aes(x=year, 
+                  ymin=c_cdr_lo , 
+                  ymax=c_cdr_hi),
+              fill=c("Darkgreen"),
+              alpha=0.4) +
+  
+  geom_line(aes(year, c_cdr),
+            size=1,
+            colour=c("Darkgreen")) +
+
+  # geom_hline(yintercept = 90, size=1, col="grey30", 
+  #            lty="dashed", alpha=.85 ) +
+
+  # annotate("text", x = 2016.5, y = 94, label = "Target set at 2023 UNHLM",size=3, col="grey10") +
+
+  facet_wrap( ~ entity, ncol = 3) +
+    scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2020, report_year-1)) +
+
+  # display y-axis scale 
+  scale_y_continuous(name = "Treatment coverage (%)",
+                     breaks = c(0,25,50,75,100)) +
+
+  theme_gtb()  +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+  
+output_ggplot(f21a_plot, f21a_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+output_ggplot(f21b_plot, f21b_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+<div class="footnote">^a^ Notifications of people with a new or relapse episode of TB as a percentage of estimated incident TB cases, in the same year. TB treatment coverage in the European Region in `r report_year-1` is underestimated, because at the time the data snapshot for this webpage was taken (`r format(as.Date(snapshot_date), format="%d %B %Y")`), `r EUR_no_data` countries had not yet reported notification data for `r report_year-1` to WHO. Once data from these countries have been reported, it is anticipated that treatment coverage in `r report_year-1` will be similar to the level of `r report_year-2`.</div>
+
+
+<hr />
+<br />
+
+### <span class="red">Fig. 23</span> The ten countries with the largest gaps between notifications of people with a new or relapse episode of TB and the best estimates of TB incidence, `r report_year-1`^a^
+
+```{r fig_23, fig.alt="Bubble map of difference between notifications and estimated incidence for 10 countries", eval=show_estimates}
+
+f23_data <- f2.3.5_data
+
+f23_plot <- f23_data %>%
+  
+  arrange(iso3) %>%
+  
+  bubblemap(legend.title = "Size of gap",
+            legend.pos = c(0.14, 0.5),
+            bubble.col = "purple",
+            scale.breaks = c(5e4, 2.5e5, 5e5+2e5),
+            scale.limits = c(5e4, 5e5+2e5),
+            scale.labels = c("50 000","250 000","500 000"),
+            water.col = "white") +
+  
+  annotate(geom='text', label='China', x=150, y=38, hjust=0, size=3) +
+  geom_segment(x=104, xend=145, y=37, yend=37) +
+  
+  annotate(geom='text', label='Viet Nam', x=150, y=25, hjust=0, size=3) +
+  geom_segment(x=106, xend=145, y=17, yend=25) +
+  
+  annotate(geom='text', label='Philippines', x=150, y=17, hjust=0, size=3) +
+  geom_segment(x=121, xend=145, y=17, yend=17) +
+  
+  annotate(geom='text', label='Pakistan', x=50, y=0, hjust=0, size=3) +
+  geom_segment(x=70, xend=67, y=30, yend=1) +
+  
+  annotate(geom='text', label='India', x=65, y=-5, hjust=0, size=3) +
+  geom_segment(x=80, xend=78, y=23, yend=-5) +
+  
+  annotate(geom='text', label='Bangladesh', x=150, y=32, hjust=0, size=3) +
+  geom_segment(x=90, xend=145, y=24, yend=31) +
+  
+  annotate(geom='text', label='Myanmar', x=67, y=-10, hjust=0, size=3) +
+  geom_segment(x=97, xend=90, y=21, yend=-8) +
+  
+  annotate(geom='text', label='Indonesia', x=82, y=-15, hjust=0, size=3) +
+  geom_segment(x=114, xend=105, y=0, yend=-12) +
+  
+  annotate(geom='text', label='Nigeria', x=-30, y=0, hjust=0, size=3) +
+  geom_segment(x=8, xend=-5, y=10, yend=0) +
+  
+  annotate(geom='text', label='Democratic\nRepublic\nof the Congo', x=-30, y=-20, hjust=0, size=3) +
+  geom_segment(x=24, xend=0, y=-2, yend=-20) #+
+  
+  # annotate(geom='text', label='South Africa', x=50, y=-30, hjust=0, size=3) +
+  # geom_segment(x=25, xend=45, y=-30, yend=-30)
+  
+output_ggplot(f23_plot, f23_data, show_static = T, pdf_csv_folder, save_csv, save_pdf)
+
+```
+<div class="footnote">^a^ The ten countries ranked in order of the size of the gap between notified cases and the best estimates of TB incidence in `r report_year-1` are `r if(show_estimates){gsub("Viet Nam", "Viet&nbsp;Nam", gsub("(Democrat)|(Philip)", "the \\1\\2", knitr::combine_words(f2.3.5_data$country, oxford_comma=FALSE)))}`.</div>
+
+<hr />
+<br />
+
+
+### <span class="red">Fig. 24</span> Global success rates for people treated for TB, 2012&#8211;`r report_year-2`
+```{r fig24, echo = FALSE, message=FALSE, warning = FALSE, fig.alt="pdf_main report_fig28_global success rate"}
+
+f24_data <- rbind.data.frame(f2.3.9_data,f2.4.7_data) %>%
+    # Determine the order of subgroup for plotting
+  mutate(subgroup = factor(subgroup,
+                           levels = c("New and relapse TB cases",
+                                      "New and relapse HIV-positive TB cases",
+                                      "MDR/RR-TB cases"))) %>%
+  filter(subgroup != "New and relapse HIV-positive TB cases", outcome == "Treatment success")
+
+f24_plot <- f24_data %>%
+  
+  ggplot(aes(year,
+             value,
+             color = subgroup)) +
+ 
+  geom_line(size = 2) +
+
+  theme_gtb() +
+  
+  theme(legend.direction='vertical') +
+
+  scale_color_manual("", 
+                    values = c("New and relapse TB cases" = "dodgerblue3",
+                               "MDR/RR-TB cases" = "firebrick3"),
+                    labels = c("People newly diagnosed with TB (new and relapse cases)\nand enrolled on first-line treatment", 
+                               "People diagnosed with MDR/RR-TB and enrolled on an MDR/RR-TB treatment regimen")) +
+  
+  ylim(50,100) +
+
+  labs(x="Year started on treatment", y="Treatment success rate (%)") +
+
+  scale_x_continuous(breaks = seq(2012, report_year-2, by = 2)) 
+
+output_ggplot(f24_plot, f24_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+
+<hr />
+<br />
+
+### <span class="red">Fig. 25</span> Percentage of people diagnosed with bacteriologically confirmed TB who were tested for rifampicin-resistant TB (RR-TB^a^), globally and for WHO regions, 2010&#8211;`r report_year-1`
+
+```{r fig_25, fig.alt="Panel plot of TB cases tested for susceptibility to rifampicin by WHO region and globally"}
+
+f25_data <- f2.2.12_data
+
+f25_plot <- f25_data %>% 
+  
+  ggplot(aes(x=year, y=dst_pcnt, ymin=0)) +
+  geom_line(size = 1.5, colour = "#e52000") +
+
+  facet_wrap( ~ entity, ncol = 4, scales="fixed") +
+    scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2015, 2020, report_year-1)) +
+  scale_y_continuous(name = "Percentage tested") +
+  expand_limits(y=c(0,100)) +
+  xlab("Year") +
+
+  theme_gtb() +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+
+output_ggplot(f25_plot, f25_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+
+<hr />
+<br />
+
+### <span class="red">Fig. 26</span> Global number of people diagnosed with MDR/RR-TB<span style="color:#277abe;"> (blue)</span> and number enrolled on MDR/RR-TB treatment<span style="color:red;"> (red)</span>, compared with estimates of the number of incident cases of MDR/RR-TB (95% uncertainty interval shown in <span style="color:`r gtbreport::palette_gtb("inc")`">green</span>), 2015&#8211;`r report_year-1`^a^  
+
+```{r fig_26, fig.width=14, fig.height=6, eval=show_estimates}
+
+f26_data <- f2.4.3_data %>%
+  filter(entity=="Global")
+
+f26_plot <- f26_data %>% 
+  
+  ggplot(aes(x=year, y=rr_detected, ymin=0)) +
+  
+  geom_line(size=1, colour = "#277abe") +
+  
+  geom_line(aes(year, rr_treated),
+            size=1,
+            colour="Red") +
+  
+  geom_ribbon(aes(x=year, 
+                  ymin=e_inc_rr_num_lo, 
+                  ymax=e_inc_rr_num_hi),
+              fill=gtbreport::palette_gtb("inc"),
+              alpha=0.4) +
+    scale_x_continuous(name="Year",
+                     breaks = c(2010, 2015, 2020, report_year-1)) +
+  geom_line(aes(year, e_inc_rr_num),
+            size=1,
+            colour=gtbreport::palette_gtb("inc")) +
+  
+  # facet_wrap( ~ entity, ncol = 4, scales="free_y") +
+  
+  scale_x_continuous(name="Year"#,
+                     # breaks = c(2015, report_year-1, by=2)
+                     ) +
+  
+  # display y-axis scale in millions
+  scale_y_continuous(name = "Number per year",labels=function(x) format(x, big.mark = " ", scientific = FALSE)) +
+  # scale_y_continuous(name = "Per year", 
+  #                    # Use the remainder operator in the labeller function to make sure we don't get weird effects
+  #                    # when plotting small numbers
+  #                    labels = function(i){ifelse((i/1e6) %% 1 == 0, round(i/1e6), round(i/1e6, 1))}) +
+  
+  theme_gtb()  +
+  
+  # Get rid of annoying x-axis line and ticks
+  theme(axis.line.x = ggplot2::element_blank(),
+        axis.ticks.x = element_blank())
+
+output_ggplot(f26_plot, f26_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+
+
+<hr />
+<br />
+
+
+### <span class="fig" style="color:#F21905">Fig. 29</span> Funding available for TB prevention, diagnostic and treatment services in `r n_country` low- and middle-income countries by source,^a,b,c^ 2015&ndash;`r report_year - 1`, compared with the first global target set at the 2023 UN high-level meeting on TB
+ 
+``` {r f29_data , fig.alt="Funding available for TB prevention, diagnostic and treatment by funding source"}
+
+f29_data <- f4.1.2b_data
+
+f29_data <- f29_data %>%  
+  select(-rcvd_ext_gf, -rcvd_ext_ngf) %>% 
+  group_by(year) %>% 
+  summarise_at(vars(int, ext, tot), function(x) sum(x, na.rm = T)) %>% 
+  filter(year <= report_year - 1) %>% 
+  pivot_longer(cols = -year) %>% 
+  mutate(name = factor(name, 
+                       levels = c("tot","int","ext"),
+                       labels = c("Total","Domestic funding","International donor funding"))) 
+
+f29_plot <- f29_data %>%
+  ggplot(aes(x=year, y = value, col = name)) +
+  geom_line(size=1.5, alpha=.85) +
+
+  scale_y_continuous(name = paste0("Billions (constant ",report_year-1," US$)"),limits= c(0,24), breaks = seq(0,24,2)) +
+  scale_x_continuous("", breaks=seq(start_year,report_year - 1,1),  expand=c(0, .1)) +
+  scale_color_manual(values = c("#00AAAD","#4ABAFC", "#E63E13" ))+ #Total = Green, 
+  theme_gtb() +
+  geom_hline(yintercept =22, size=0.75, col="grey30", 
+             lty="dashed", alpha=.85 ) +
+  annotate("text", x = (start_year+report_year-1)/2, y = 23, label = "Target for 2027 set at the 2023 UN high-level meeting on TB",size=4, col="grey30") +
+  # Add a gray line over the x-axis so that all graphs have a line at the bottom
+  annotate("segment", x=-Inf, 
+           xend=Inf, 
+           y=-Inf, 
+           yend=-Inf, 
+           colour = "#BCBCBC")
+
+output_ggplot(f29_plot, f29_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+#Comment from Irwin: For the next GTB report, can you export the data used to create the figure? It is manipulated above and not f28_data.
+```
+<div class = "footnote">^a^ Values for `r start_year`&ndash;`r report_year - 2` are higher than those shown in the Global Tuberculosis Report `r report_year - 1`, since they have been inflated (for comparability with data for `r report_year - 1`) to constant US\$ values for `r report_year - 1`<br>
+^b^ The `r n_country` countries accounted for `r ftb(notif_included_prop)`% of the global number of notified cases of TB in `r report_year - 1`. In a small number of countries (`r int2word(methods_box %>% filter(rcvd_imputation != "Reported data" & (is.na(rcvd_tot)) | (do_not_fill == 1)) %>% summarise(n()) %>% unlist())` countries in `r report_year-1`, which accounted for `r ftb(100*(methods_box %>% filter(rcvd_imputation != "Reported data" & (is.na(rcvd_tot)) | (do_not_fill == 1)) %>% summarise(sum(c_notified, na.rm = T))) / sum(notif_total$c_notified))`% of the number of TB cases notified globally), TB funding data for `r report_year - 1` were not reported to WHO and funding amounts could not be estimated from available data. For these countries, only the estimated financial costs associated with the inpatient and outpatient treatment were included.
+<br>^c^ In the most recent classification of countries by income group published by the World Bank (`r ref_lnk("7")`), the Russian Federation was categorized as a high-income country. The country was included in all analyses because it was an upper-middle-income country for most of the period 2011&ndash;`r report_year - 1`, it is in WHO’s list of high burden countries for drug-resistant TB and is one of the three countries in WHO’s list of global TB watchlist countries (having been in WHO’s list of high TB burden countries until 2020). For more details about WHO’s lists of high burden countries for TB, drug-resistant TB and TB/HIV, see <span class="red">Annex 3</span> of the core report document.</div>
+
+<hr />
+<br />
+
+
+### <span class="fig" style="color:#F21905">Fig. 30</span> Funding available for TB prevention, diagnostic and treatment services in `r n_country` low- and middle-income countries and three other country groups,^a^ 2015&ndash;`r report_year - 1`
+ 
+``` {r f30_data, fig.height=9}
+
+# A similar graph is produced for the summary report, but combining the brics split (f4.1.3a_data) with the Fig 4.1.2b
+f30_data <- f4.1.2b_data %>% select(-iso3,-tot) %>% 
+  group_by(year) %>% 
+  summarise_at(vars(int,ext), sum, na.rm = T) %>% 
+  mutate(grp = "all") %>% # To allow grouped data to be appended next
+  rbind(f4.1.3a_data) %>% 
+  filter(year <= report_year-1) %>% 
+  pivot_longer(cols = c("int","ext")) %>% 
+  mutate(name = factor(name, 
+                       levels = c("int","ext"),
+                       labels = c("Domestic funding","International donor funding"))) %>% 
+  mutate(grp = factor(grp,
+                      levels = c("all","brics","hbc","rest"),
+                      labels = c( paste0("All low and middle-income countries (n=",n_country,")"), # making the count dynamic
+                                  "BRICS (n=5)",
+                                  "High TB burden and global TB watchlist countries outside BRICS\u1d47 (n=28)",
+                                  paste0("Other low and middle-income countries (n=",n_country - 33,")"))
+  )) %>% 
+  arrange(year, grp) 
+
+f30_plot <- f30_data %>% 
+  ggplot(aes(x=year, y = value, col = name)) +
+  geom_line(size=1.5, alpha=.85) +
+  scale_y_continuous(name = paste0("Billions (constant ",report_year-1," US$)")) +
+  expand_limits(y = 0) +
+  scale_x_continuous("", breaks=seq(start_year,report_year - 1,2),  expand=c(0, .1)) +
+  scale_color_manual(values = c("#4ABAFC", "#E63E13" )) +
+  facet_wrap(~grp, ncol = 2, scales = 'free_y', strip.position = "top" , labeller = label_wrap_gen(width = 25) ) +
+  theme_gtb() 
+
+output_ggplot(f30_plot, f30_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+```
+<div class = "footnote">^a^ In the most recent classification of countries by income group published by the World Bank, the Russian Federation was categorized as a high-income country. The country was included in all analyses because it was an upper-middle-income country for most of the period 2011&ndash;`r report_year - 1`, it is in WHO’s list of high burden countries for drug-resistant TB and is one of the three countries in WHO’s list of global TB watchlist countries (having been in WHO’s list of high TB burden countries until 2020). For more details about WHO’s lists of high burden countries for TB, drug-resistant TB and TB/HIV, see <span class="red">Annex 3</span>.<br>
+^b^ The two global TB watchlist countries included are Cambodia and Zimbabwe.</div>
+
+<hr />
+<br />
+
+
+### <span style="color:#F21905">Fig. 31</span> UHC service coverage index (SDG 3.8.1)^a^ and percentage of the general population facing catastrophic health expenditure (SDG 3.8.2),^b^ 30 high TB burden countries,^c^ stratified by income group^d^
+
+```{r fig_30, fig.height=9}
+
+f31_data <- f5.1.6_data
+
+f31_plot <- f31_data %>% 
+  filter(!is.na(year)) %>%
+  ggplot() +
+  geom_point(aes(x=uhc_index,y=uhc_ce10,col=g_income), size=2) +
+  facet_wrap(~g_income,ncol=1, scales="free",
+             labeller = labeller(g_income=label_income)) +
+  theme(strip.text = element_text(angle = 0, hjust = 0.001)) +
+  theme_gtb() +
+  theme(panel.border = element_rect(colour = "black", fill=NA, size=0.5)) +
+  geom_text_repel(aes(x=uhc_index,y=uhc_ce10,label = country,col=g_income), 
+                  col='black',size=3,segment.alpha = 0.4, max.overlaps = Inf,
+                  min.segment.length = 0,
+                  point.padding = 1, box.padding = 0.5,force_pull=0.1,
+                  max.time = 10, max.iter=1000000) +
+  xlim(c(20,85)) +
+  expand_limits(y=c(-5,38)) +   xlab("UHC service coverage index (SDG 3.8.1)") + 
+  ylab("Percentage of the general population facing catastrophic health expenditure (SDG 3.8.2)")+
+  scale_color_brewer(palette="Set1") +
+  theme(legend.position = "none")
+
+output_ggplot(f31_plot, f31_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+```
+<div class="footnote">^a^ The SCI can take values from 0 (worst) to 100 (best) and is calculated using 16 tracer indicators, one of which is the coverage of TB treatment. Values shown for the SCI are estimates for the latest year for which data for SDG 3.8.2 are available. Values are based on interpolated points between available years over the 2000&#8211;2021 period.<br />
+^b^ Defined as ≥10% of total household consumption or income. The latest available year ranges from 2007 to 2021 for the 30 high TB burden countries.<br />
+^c^ Data were not available for Democratic People's Republic of Korea and Papua New Guinea.<br />
+^d^ The classification is for the latest year for which data for SDG 3.8.2 are available.</div>
+
+<hr />
+<br />
+
+### <span style="color:#F21905">Fig. 32</span> Estimates of the percentage of people with TB and their households facing catastrophic total costs,^a^ national surveys completed 2015&#8211;`r report_year`^b^ 
+
+```{r fig_32,fig.dim = c(12, 10),fig.alt="Forest plot to show selected baseline results from national surveys of costs faced by TB patients and their households"}
+
+f32_data <- f5.2.4a_data
+
+f32_plot <- 
+  f32_data  %>% 
+  mutate(country = factor(country, levels = f5.2.4_sel_order$country, ordered = TRUE)) %>% 
+  ggplot(aes(y = country, x = catast_pct, group=grp))+
+  geom_point(aes(col=grp,shape=grp,size=grp))+
+  geom_errorbar(aes(xmin=catast_pct_lo, xmax=catast_pct_hi,col=grp), width=0.5,cex=1) +
+  xlim(0,100) + xlab(bquote('Percentage')) + ylab(NULL) +
+  # annotate("text", x = 0, y = nrow(f5.2.4a_data)+1.5, label = "All forms of TB", cex=5,hjust = 0)+
+  coord_cartesian(clip = 'off') +
+  scale_color_manual(values=c("darkblue","dodgerblue3")) +
+  scale_shape_manual(values=c(18,20)) +
+  scale_size_manual(values=c(5,4)) +
+  theme_gtb() + theme(legend.position = "none") +
+  theme(axis.title.x = element_text(face = 'bold',size=12)) +
+  theme(axis.text.x  = element_text(face = 'plain',size=12)) +
+  theme(axis.text.y  = element_text(face = c('bold',rep('plain',nrow(f5.2.4a_data)-1)),size=12))
+
+output_ggplot(f32_plot, f32_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo = T)
+
+```
+<div class="footnote">
+^a^ Defined as direct medical expenditures, direct nonmedical expenditures and indirect costs (e.g. income losses) that sum to >20% of annual household expenditure or income. This indicator is not the same as the SDG indicator for catastrophic health expenditures; see <span style="color:#F21905">Box 4</span>.
+<br />^b^ The percentages are based on `r nrow(f5.2.4a_txt_num)` national surveys that have been completed and for which data have been reported. Data were not available for China and the Republic of Moldova.</div>
+
+<hr />
+<br />
+
+### <span class="red">Fig. 33</span> Global estimates of the number of people with a new episode of TB (incident cases) attributable to five risk factors,^a^ `r report_year-1`
+
+```{r fig 33, eval=show_estimates}
+
+f33_data <- f5.3.2_data
+
+f33_plot <- f33_data  %>% 
+  ggplot(aes(x = risk_factor, y = best, group=risk_factor))+
+  geom_point(aes(col=risk_factor),position=position_dodge(width=0.5),size=4)+
+  geom_errorbar(aes(ymin=lo, ymax=hi,col=risk_factor),
+                width=0.2,cex=1.5,position=position_dodge(width=0.5))+ 
+  xlab(NULL) + 
+  ylab("Number of cases (millions)") + 
+  scale_y_continuous(breaks=c(1,2e5, 4e5, 6e5, 8e5, 1e6, 1.2e6), labels = c("0","0.2","0.4","0.6","0.8","1.0","1.2"), limits = c(0,1.2e6)) +
+  theme(legend.position = "none")+
+  scale_color_manual(name = NULL, values=c("green4","firebrick2","goldenrod3","deeppink3","dodgerblue3")
+  ) + 
+  coord_flip()
+
+f33_plot <- f33_plot + theme_gtb()+theme(legend.position = "none")
+
+output_ggplot(f33_plot, f33_data, show_static, pdf_csv_folder, save_csv, save_pdf)
+
+
+
+```
+<div class="footnote">^a^ Undernutrition is defined as a low body mass index (BMI) for people aged ≥5 years. Underweight (low weight-for-age), wasting (low weight-for-height) and stunting (low height-for-age) are used to defined undernutrition for people aged under five years.</div>  
+
+<hr />
+<br />
+
+### <span class="red">Fig. 34</span> The relationship between two SDG-related indicators and TB incidence per 100&nbsp;000 population, `r report_year-1`
+
+#### (a) GDP per capita^a^
+```{r Fig 34a, eval=show_estimates}
+
+f34a_data  <- 
+  f5.3.1a_data 
+
+f34a_plot  <- 
+  f34a_data %>% 
+  ggplot(aes(x=gdp,y=inc)) +
+  geom_point() +
+  scale_x_log10() + scale_y_log10(limits=c(1,1000)) +
+  xlab('GDP per capita (US$ thousands)') +
+  ylab('Incidence per 100 000 population (log scale)') +
+  geom_smooth(method='lm', fill="lawngreen",color="limegreen") +
+  theme_gtb() #+ theme(panel.background = element_rect(fill = "#F7DEB4")) 
+
+output_ggplot(f34a_plot, f34a_data, show_static = T, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+#### (b) Prevalence of undernutrition^a,b^
+```{r Fig 34b, eval=show_estimates}
+
+f34b_data  <- 
+  f5.3.1b_data 
+
+f34b_plot  <- 
+  f34b_data %>% 
+  ggplot(aes(x=nut,y=inc)) +
+  geom_point() +
+  scale_x_log10() + scale_y_log10(limits=c(1,1000)) +
+  xlab('Prevalence of undernutrition\u1D47') +
+  ylab('Incidence per 100 000 population (log scale)') +
+  geom_smooth(method='lm', fill="royalblue2",color="dodgerblue3") +
+  theme_gtb() #+ theme(panel.background = element_rect(fill = "#E7EEF8"))  
+    
+
+output_ggplot(f34b_plot, f34b_data, show_static = T, pdf_csv_folder, save_csv, save_pdf)
+
+```
+
+<div class="footnote">^a^ The year of data used for GDP per capita and the population prevalence of undernutrition is the latest year for which data are available from the World Bank (https://data.worldbank.org/) and in the WHO Global Health Observatory (https://www.who.int/data/gho), respectively.<br />
+^b^ Undernutrition is defined as a low body mass index (BMI) for people aged ≥5 years. Percentage of people aged ≥18 years with BMI <18.5.</div> 
+
+<hr />
+<br />
+
+
+### <span class="red">Table 3</span> Cumulative number of deaths averted by a) TB treatment as well as b) antiretroviral treatment for people diagnosed with TB who were also living with HIV, `r lsaved_year`&#8211;`r report_year - 1` (in millions), globally and by WHO region
+
+```{r t3, eval= TRUE }
+
+# Format numbers for the table
+t3_data <- t2.3.1_data %>%
+  mutate(across(where(is.numeric), ftb))
+
+# Create a table object using kable
+table_header <- c('WHO region',
+                  'Best estimate',
+                  'Uncertainty interval',
+                  'Best estimate',
+                  'Uncertainty interval',
+                  'Best estimate',
+                  'Uncertainty interval')
+
+knitr::kable(t3_data,
+             format = "html",
+             col.names = table_header,
+             align = 'lccccc',
+             # Add a table ID so that it can be styled using extra CSS in Sitefinity
+             table.attr = "id='deaths_averted_table'") %>%
+  add_header_above(header = c(" " = 1,
+                              "People without HIV" = 2,
+                              "People with HIV\U1D43" = 2,
+                              "Total" = 2))
+
+
+```
+<div class="footnote">^a^ Deaths from TB among people with HIV are officially classified as deaths caused by HIV/AIDS (with TB as a contributory cause). This is the reason why the estimates make a clear distinction between people with and without HIV.</div> 
+
