@@ -672,11 +672,11 @@ Further country-specific details for the 14 indicators related to TB incidence a
   
 2. Styblo K, Meijer J, Sutherland I. [The transmission of tubercle bacilli: its trend in a human population]. Bull World Health Organ. 1969;41(1):137&#8211;78 (https://www.ncbi.nlm.nih.gov/pubmed/5309081).
 
-3. Imtiaz S, Shield KD, Roerecke M, Samokhvalov AV, L&#246;nnroth K, Rehm J. Alcohol consumption as a risk factor for tuberculosis: meta-analyses and burden of disease. Eur Respir J. 2017;50 (https://pubmed.ncbi.nlm.nih.gov/28705945/).
+3. Imtiaz S, Shield KD, Roerecke M, Samokhvalov AV, L&#246;nnroth K, Rehm J. Alcohol consumption as a risk factor for tuberculosis: meta-analyses and burden of disease. Eur Respir J. 2017;50 (http://doi.org/10.1183/13993003.00216-2017).
 
-4. Hayashi S, Chandramohan D. Risk of active tuberculosis among people with diabetes mellitus: systematic review and meta-analysis. Trop Med Int Health. 2018;23:1058-70 (https://pubmed.ncbi.nlm.nih.gov/30062731/).
+4. Hayashi S, Chandramohan D. Risk of active tuberculosis among people with diabetes mellitus: systematic review and meta-analysis. Trop Med Int Health. 2018;23:1058-70 (https://doi.org/10.1111/tmi.13133).
 
-5. L&#246;nnroth K, Castro KG, Chakaya JM, Chauhan LS, Floyd K, Glaziou P et al. Tuberculosis control and elimination 2010-50: cure, care, and social development. The Lancet. 2010;375:1814-29 (https://pubmed.ncbi.nlm.nih.gov/20488524/).
+5. Jayes L, Haslam PL, Gratziou CG, Powell P, Britton J, Vardavas C et al. Tobacco Control Committee of the European Respiratory Society. SmokeHaz: Systematic Reviews and Meta-analyses of the Effects of Smoking on Respiratory Health. Chest. 2016 Jul;150(1):164-79. (https://doi.org/10.1016/j.chest.2016.03.060).
 
 6.	Franco JVA, Bongaerts B, Metzendorf MI, Risso A, Guo Y, Pena Silva L et al. Undernutrition as a risk factor for tuberculosis disease. Cochrane Database of Systematic Reviews 2024, Issue 6. Art. No.CD015890. (https://doi.org/10.1002/14651858.CD015890.pub2).
 
