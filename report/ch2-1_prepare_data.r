@@ -353,10 +353,10 @@ f2.1.6_data <- ep_data %>%
 f2.1.7_data <- notification %>%
   select(iso3,country,year,c_notified,notif_foreign) %>%
   filter(year==report_year-1|year==report_year-2) %>%
-  mutate(notif_foreign = ifelse(iso3 == "TCD" & year==2023 & notif_foreign == c_notified, 0, notif_foreign)) %>% # Chad reported all cases as foreign cases: replaced with zero.
+  # mutate(notif_foreign = ifelse(iso3 == "TCD" & year==2023 & notif_foreign == c_notified, 0, notif_foreign)) %>% # Chad reported all cases as foreign cases: replaced with zero.
   mutate(pct_foreign = notif_foreign/c_notified * 100) %>%
   pivot_wider(names_from = year, values_from = c_notified:pct_foreign) %>%
-  mutate(pct_foreign = ifelse(is.na(pct_foreign_2022),pct_foreign_2022,pct_foreign_2023)) %>%
+  mutate(pct_foreign = ifelse(is.na(pct_foreign_2023),pct_foreign_2022,pct_foreign_2023)) %>%
   # Assign the categories for the map
   mutate(var = cut(pct_foreign,
                    c(0, 5, 25, 50, 75, Inf),

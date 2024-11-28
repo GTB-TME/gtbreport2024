@@ -353,7 +353,7 @@ output_ggplot(f5.2.6_plot, f5.2.6_data, show_static, pdf_csv_folder, save_csv, s
 
 ```
 <div id="fig_5_2_6"></div>
-<div class="footnote">Source: Portnoy A, Yamanaka T, Nguhiu P, Nishikiori N, Garcia Baena I, Floyd K, et al. Costs incurred by people receiving tuberculosis treatment in low-income and middle-income countries: a meta-regression analysis. Lancet Glob Health. 2023;11:e1640-e7 (https://pubmed.ncbi.nlm.nih.gov/37734806/).</div>
+<div class="footnote">Source: Portnoy A, Yamanaka T, Nguhiu P, Nishikiori N, Garcia Baena I, Floyd K, et al. Costs incurred by people receiving tuberculosis treatment in low-income and middle-income countries: a meta-regression analysis. Lancet Glob Health. 2023;11:e1640-e7 (https://doi.org/10.1016/S2214-109X(23)00369-8).</div>
 
 
 <hr />
@@ -575,7 +575,7 @@ Further details about policies to protect people from stigma and discrimination 
 
 4.	Tuberculosis patient cost surveys: a handbook. Geneva: World Health Organization; 2017 (https://iris.who.int/handle/10665/259701).
 
-5.	Portnoy A, Yamanaka T, Nguhiu P, Nishikiori N, Garcia Baena I, Floyd K, et al. Costs incurred by people receiving tuberculosis treatment in low-income and middle-income countries: a meta-regression analysis. Lancet Glob Health. 2023;11:e1640-e7 (https://pubmed.ncbi.nlm.nih.gov/37734806/).
+5.	Portnoy A, Yamanaka T, Nguhiu P, Nishikiori N, Garcia Baena I, Floyd K, et al. Costs incurred by people receiving tuberculosis treatment in low-income and middle-income countries: a meta-regression analysis. Lancet Glob Health. 2023;11:e1640-e7 (https://doi.org/10.1016/S2214-109X(23)00369-8).
 
 6.	Besley T, Coate S. Understanding welfare stigma: taxpayer resentment and statistical discrimination. Journal of Public Economics. 1992;48(2):165-183 (https://doi.org/10.1016/0047-2727(92)90025-B).
 

@@ -650,7 +650,7 @@ Sources: WHO Global Health Expenditure Database (http://apps.who.int/nha/databas
 
 4. Global Health Observatory (https://www.who.int/data/gho).
 
-5. Tangcharoensathien V, Witthayapipopsakul W, Panichkriangkrai W, Patcharanarumol W, Mills A. Health systems development in Thailand: a solid platform for successful implementation of universal health coverage. Lancet. 2018;391(10126):1205&#8211;23 (https://pubmed.ncbi.nlm.nih.gov/29397200/).
+5. Tangcharoensathien V, Witthayapipopsakul W, Panichkriangkrai W, Patcharanarumol W, Mills A. Health systems development in Thailand: a solid platform for successful implementation of universal health coverage. Lancet. 2018;391(10126):1205&#8211;23 (https://doi.org/10.1016/S0140-6736(18)30198-3).
 
 
 

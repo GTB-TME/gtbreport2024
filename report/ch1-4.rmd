@@ -278,7 +278,7 @@ output_ggplot(f1_4_2_plot, f1_4_2_data, show_static = TRUE, pdf_csv_folder, save
 
 Surveys have shown that the estimated prevalence of bacteriologically confirmed pulmonary TB per 100&nbsp;000 population aged 15 years or over was high in many countries, but there was also considerable variation (`r lnk("Fig. 1.4.3")`). 
 
-### `r anch("Fig. 1.4.3")`<span class="red">Fig. 1.4.3</span> Estimates of the prevalence of bacteriologically confirmed pulmonary TB in surveys completed 2007&#8211;2021^a^
+### `r anch("Fig. 1.4.3")`<span class="red">Fig. 1.4.3</span> Estimates of the prevalence of bacteriologically confirmed pulmonary TB (≥15 years of age) in surveys completed 2007&#8211;2021^a^
 ```{r  fig_1.4.3, echo=FALSE, message=FALSE, warning=FALSE, results = "asis", dev = 'png',  fig.alt="Map of countries involved in national TB prevalence surveys"}
 
 f1_4_3_data <- prev  %>%
@@ -660,7 +660,19 @@ f1_4_7_plot <-ggplot(prev_notif, aes(x = pn, y = country)) +
       scale_y_discrete(limits = prev_notif$country[order(prev_notif$pn)]) +
     theme_gtb()
 
+# alternative version using a horizontal bar instead of a dot
+#f1_4_7_plot2 <-ggplot(prev_notif, aes(x = pn, y = country)) +
+#    geom_bar(stat="identity",  width=.8, fill="#F25278") +
+#    xlab ("Prevalence:Notification ratio") +
+#    ylab ("") +
+#    scale_y_discrete(limits = prev_notif$country[order(prev_notif$pn)]) +
+#    theme_gtb()
+#f1_4_7_plot2 
+
+
 output_ggplot(f1_4_7_plot, prev_notif, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+#output_ggplot(f1_4_7_plot2, prev_notif, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+
 
 ```
 <div id="fig_1_4_7"></div>
@@ -679,8 +691,8 @@ f1_4_8_data <- prev_notif %>%
 
 
 f1_4_8_plot <- ggplot(f1_4_8_data, aes(x=country, y=value, colour=sex)) +
-  geom_point(stat="identity", size=3) +
-  #geom_bar(stat="identity",  width=.8) +
+  #geom_point(stat="identity", size=3) +
+  geom_bar(stat="identity",  width=.8) +
   coord_flip() + 
   scale_color_manual(values = c("f" = '#6363C0','m' = '#F4A81D'),
                      labels = c("Female", "Male")) +
@@ -691,6 +703,39 @@ f1_4_8_plot <- ggplot(f1_4_8_data, aes(x=country, y=value, colour=sex)) +
 
 
 output_ggplot(f1_4_8_plot, f1_4_8_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+
+
+#Create alternate figure - bar graphs
+
+## Wide to long
+
+pn_by_sex_data <- gather(prev_notif, sex, ratio, pn_f:pn_m, factor_key=TRUE)
+pn_by_sex_data
+
+# Rename factor names 
+levels(pn_by_sex_data$sex)[levels(pn_by_sex_data$sex)=="pn_f"] <- "Female"
+levels(pn_by_sex_data$sex)[levels(pn_by_sex_data$sex)=="pn_m"] <- "Male"
+
+# Sort by subject first, then by condition
+pn_by_sex_data <- pn_by_sex_data[order(pn_by_sex_data$country, pn_by_sex_data$sex), ]
+pn_by_sex_data
+
+
+#create bar figure 
+
+#f1_4_8_plot2<-ggplot(data=pn_by_sex_data, aes(x=country, y=ratio, fill=sex)) +
+#    geom_bar(stat="identity", position=position_dodge(), width=0.8) +
+#    coord_flip() + 
+#    scale_color_manual(values = c("f" = '#6363C0','m' = '#F4A81D'),
+#                     labels = c("Female", "Male")) +
+#    xlab("") +
+#    ylab("Prevalence:Notification ratio") +
+#    scale_x_discrete(limits = f1_4_8_data$country[order(f1_4_8_data$pn)]) +
+#    theme_gtb()
+#f1_4_8_plot2
+
+#output_ggplot(f1_4_8_plot2, f1_4_8_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+
 
 ```
 <div id="fig_1_4_8"></div>
@@ -892,7 +937,21 @@ f1_4_11_plot <-ggplot(f1_4_11_data, aes(x = ratio, y = country)) +
     theme_gtb()
 # f1_4_11_plot 
 
+
+# alternative version using a horizontal bar instead of a dot
+#f1_4_11_plot2 <- ggplot(f1_4_11_data, aes(x=country, y=ratio)) +
+#    geom_bar(stat="identity",  width=.8, fill="#F25278") +
+#    coord_flip() +
+#    xlab ("") +
+#    ylab("Percentage") +
+#    scale_x_discrete(limits = f1_4_11_data$country[order(f1_4_11_data$ratio)]) +
+#    theme_gtb()
+#f1_4_11_plot2 
+
+
 output_ggplot(f1_4_11_plot, f1_4_11_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+#output_ggplot(f1_4_11_plot2, f1_4_11_data, show_static, pdf_csv_folder, save_csv, save_pdf, save_cairo)
+
 
 ```
 <div id="fig_1_4_11"></div>
