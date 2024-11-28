@@ -1,0 +1,150 @@
+% _all: Version to pull data from 2018 onwards, into one table
+
+clear all; 
+C = readtable('TB_notifications_2023-04-24.csv');
+
+colnames = C.Properties.VariableNames;
+
+% --- Filter on years from 2015
+rows    = find(C.year>=2015);
+C1      = C(rows,:);
+
+% --- Pull out the relevant notification data
+notifcols  = [find(strcmp(colnames,'iso3')), find(strcmp(colnames,'country')), find(strcmp(colnames,'year')), find(strcmp(colnames,'g_whoregion')), find(strcmp(colnames,'ret_nrel')), find(strcmp(colnames,'c_newinc'))];
+C2         = C1(:,notifcols);
+C2.allnoti = C2.ret_nrel + C2.c_newinc;
+
+years = unique(C2.year);
+for iy = 1:length(years)
+    if iy == 1
+        cols = [1:2, size(C2,2)];
+        tmp  = C2(C2.year==years(iy),cols);
+        mat  = renamevars(tmp,'allnoti',['noti ', num2str(years(iy))]);
+    else
+        cols = [1,size(C2,2)];
+        tmp  = renamevars(C2(C2.year==years(iy),cols),'allnoti',['noti ', num2str(years(iy))]);
+        mat  = outerjoin(mat, tmp, 'MergeKeys', true);
+    end
+end
+
+% --- Now append 2022 data from disruption file
+load ../Disruptions/disruption_data_2023_04_24;
+
+% Get total notifications in 2022 - 2023 so far
+mdata_sum = squeeze(nansum(mdata(:,:,3),2));
+qdata_sum = squeeze(nansum(qdata(:,:,3),2));
+vec = max([mdata_sum, qdata_sum],[],2);         
+
+% CAUTION: countries such as COD show zero notifications only because they
+% didn't report 2022 sub-annual notifications
+disp('Countries with apparently zero notifications in 2022:');
+inds = find(vec==0);
+iso3_disrp(inds)
+
+% Now merge into notifications table
+mat.("noti 2022") = NaN(size(mat,1),1);
+for ii = 1:length(iso3_disrp)
+    row = find(strcmp(mat.iso3,iso3_disrp{ii}));
+    mat{row,end} = vec(ii);
+end
+
+% See which countries have significant trends from 2015 onwards
+nums = mat{:,3:end};
+for ii = 1:size(nums,1)
+    mdl = fitlm(2015:2019, nums(ii,1:5), 'linear');
+    coeffs(ii,:) = [mdl.Coefficients.pValue(2), mdl.Coefficients.Estimate(2)];
+end
+inds = find(coeffs(:,1)<0.05 & coeffs(:,2)<0);
+
+% For those, predict what notifications should have been between 2020 -
+% 2022
+exp_notifs = [];
+
+
+
+return;
+
+% --- Prepare for saving
+notifs_18 = C2(1:2:end,[1:3,end]);
+notifs_19 = C2(2:2:end,[1:3,end]);
+
+
+
+% -------------------------------------------------------------------------
+% --- Also, make lookups that will be useful in later categorisations -----
+
+% --- Get a list of countries in each region
+regs = unique(notifs_19.g_whoregion);
+for ir = 1:length(regs)
+    rows = find(strcmp(notifs_19.g_whoregion,regs{ir}));
+    reg2iso3s.(regs{ir}) = notifs_19.iso3(rows);
+end
+
+% --- Get a lookup of each iso3 code to country names, in agreement with Thembisa model
+iso3s = unique(notifs_19.iso3);
+for ic = 1:length(iso3s)
+    ctr = iso3s{ic};
+    row = find(strcmp(notifs_19.iso3,ctr));
+    iso2ctry.(ctr) = notifs_19.country{row};
+end
+% Make adjustments according to labelling in Thembisa model
+iso2ctry.COD = 'Democratic Republic of the Congo';
+iso2ctry.GBR = 'United Kingdom';
+
+
+save notif_data_1819 notifs_18 notifs_19;
+save lookups reg2iso3s iso2ctry;
+
+
+
+return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+reg = {};
+
+% --- Populate regions for country ----------------------------------------
+iso3s = notifs_18.iso3;
+for ic = 1:length(iso3s)
+    ctr = iso3s{ic};
+    reg{ic} = notifs_18.g_whoregion{find(strcmp(notifs_18.iso3,ctr))};
+end
+
+lookup = [iso3s, reg'];
+% Reverse, to get a list of countries in each region
+regs = unique(reg);
+for ir = 1:length(regs)
+    ctrlist.(regs{ir}) = lookup(find(strcmp(lookup(:,2),regs{ir})),1);
+end
+
+% --- Get a lookup of each iso3 code to country ---------------------------
+for ic = 1:length(ctrs2_mat)
+    ctr = ctrs2_mat{ic};
+    row = find(strcmp(notifs_18.iso3,ctr));
+    iso2ctry.(ctr) = notifs_18.country{row};
+end
+% Make adjustments according to labelling in Thembisa model
+iso2ctry.COD = 'Congo';
+iso2ctry.GBR = 'United Kingdom';
+
+save notif_data_1819 notifs_18 notifs_19;
+
+
+
+% % --- Also, get information for numbers diagnosed with HIV
+% col = [find(strcmp(colnames,'iso3')), find(strcmp(colnames,'ret_nrel')), find(strcmp(colnames,'c_newinc')), find(strcmp(colnames,'hivtest_pos'))];
+% C4 = C1(:,notifcols);
